@@ -15,65 +15,68 @@ ENV     LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 RUN     apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv 
 
 
-RUN     echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-#       sed -i -e "s/v3.4/edge/" /etc/apk/repositories && \
-        echo /etc/apk/respositories && \
-        apk update && \
-        apk add --no-cache bash \
-        openssh-client \
-        wget \
-        supervisor \
-        curl \
-        libcurl \
-        git \
-        python \
-        python-dev \
-        py-pip \
-        augeas-dev \
-        openssl-dev \
-        ca-certificates \
-        dialog \
-        autoconf \
-        make \
-        gcc \
-        musl-dev \
-        linux-headers \
-        libmcrypt-dev \
-        libpng-dev \
-        icu-dev \
-        libpq \
-        libxslt-dev \
-        libffi-dev \
-        freetype-dev \
-        sqlite-dev \
-        libjpeg-turbo-dev && \
-        docker-php-ext-configure gd \
-          --with-gd \
-          --with-freetype-dir=/usr/include/ \
-          --with-png-dir=/usr/include/ \
-          --with-jpeg-dir=/usr/include/ && \
-        #curl iconv session
-        docker-php-ext-install pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache && \
-        pecl install xdebug && \
-        docker-php-source delete && \
-        mkdir -p /etc/nginx && \
-        mkdir -p /var/www/app && \
-        mkdir -p /run/nginx && \
-        mkdir -p /var/log/supervisor && \
-        EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) && \
-        php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-        php -r "if (hash_file('SHA384', 'composer-setup.php') === '${EXPECTED_COMPOSER_SIGNATURE}') { echo 'Composer.phar Installer verified'; } else { echo 'Composer.phar Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
-        php composer-setup.php --install-dir=/usr/bin --filename=composer && \
-        php -r "unlink('composer-setup.php');"  && \
-        pip install -U pip && \
-        pip install -U certbot && \
-        mkdir -p /etc/letsencrypt/webrootauth && \
-        apk del gcc musl-dev linux-headers libffi-dev augeas-dev python-dev make autoconf
-#       ln -s /usr/bin/php7 /usr/bin/php
+RUN   addgroup -S nginx && \
+      adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx  && \
+      echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
+#     sed -i -e "s/v3.4/edge/" /etc/apk/repositories && \
+      echo /etc/apk/respositories && \
+      apk update && \
+      apk add --no-cache bash \
+      openssh-client \
+      wget \
+      supervisor \
+      curl \
+      libcurl \
+      git \
+      python \
+      python-dev \
+      py-pip \
+      augeas-dev \
+      openssl-dev \
+      ca-certificates \
+      dialog \
+      autoconf \
+      make \
+      gcc \
+      musl-dev \
+      linux-headers \
+      libmcrypt-dev \
+      libpng-dev \
+      icu-dev \
+      libpq \
+      libxslt-dev \
+      libffi-dev \
+      freetype-dev \
+      sqlite-dev \
+      libjpeg-turbo-dev && \
+      docker-php-ext-configure gd \
+        --with-gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-png-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
+      #curl iconv session
+      docker-php-ext-install pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache && \
+      pecl install xdebug && \
+      docker-php-source delete && \
+      mkdir -p /etc/nginx && \
+      mkdir -p /var/www/app && \
+      mkdir -p /run/nginx && \
+      mkdir -p /var/log/supervisor && \
+      EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) && \
+      php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+      php -r "if (hash_file('SHA384', 'composer-setup.php') === '${EXPECTED_COMPOSER_SIGNATURE}') { echo 'Composer.phar Installer verified'; } else { echo 'Composer.phar Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+      php composer-setup.php --install-dir=/usr/bin --filename=composer && \
+      php -r "unlink('composer-setup.php');"  && \
+      pip install -U pip && \
+      pip install -U certbot && \
+      mkdir -p /etc/letsencrypt/webrootauth && \
+      apk del gcc musl-dev linux-headers libffi-dev augeas-dev python-dev make autoconf
+#     ln -s /usr/bin/php7 /usr/bin/php
 
 
 
 # tweak php-fpm config
+
 RUN     echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
         echo "upload_max_filesize = 100M"  >> ${php_vars} &&\
         echo "post_max_size = 100M"  >> ${php_vars} &&\
