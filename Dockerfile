@@ -177,4 +177,6 @@ ADD     errors/ /var/www/errors
 
 EXPOSE  8443 80
 
-CMD     ["/start.sh"]
+ENTRYPOINT  ["/start.sh"] 
+
+CMD ["nginx", "-g", "daemon off;"]
