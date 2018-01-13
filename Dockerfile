@@ -1,6 +1,5 @@
 FROM    alpine
 
-
 ENV     NGINX_VERSION 1.13.7
 ENV     LUA_MODULE_VERSION 0.10.11
 ENV     DEVEL_KIT_MODULE_VERSION 0.3.0
@@ -151,8 +150,6 @@ RUN     GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
   # forward request and error logs to docker log collector
   &&    ln -sf /dev/stdout /var/log/nginx/access.log \
   &&    ln -sf /dev/stderr /var/log/nginx/error.log
-
-
 
 # Copy our nginx config
 RUN     rm -Rf /etc/nginx/nginx.conf
