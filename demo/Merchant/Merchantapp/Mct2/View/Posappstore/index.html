@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_APPSTORE_')} - {$admin['shop_name']}</title>
+<include file="./css" />
+<script src="/Public/mct2/js/jquery.hoverdir.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#da-thumbs li a').hoverdir( {
+		hoverDelay	: 30,
+		reverse		: true
+	} );
+});
+</script>
+</head>
+<body>
+<include file="./header" />
+<a <eq name="map['app_size']" value="1">class="on"</eq> href="__CONTROLLER__/index/app_size/1/apt_id/{$map['apt_id']}">自适应屏幕</a>&nbsp;&nbsp; 
+<a <eq name="map['app_size']" value="2">class="on"</eq> href="__CONTROLLER__/index/app_size/2/apt_id/{$map['apt_id']}">横版</a>&nbsp;&nbsp; 
+<a <eq name="map['app_size']" value="3">class="on"</eq> href="__CONTROLLER__/index/app_size/3/apt_id/{$map['apt_id']}">竖版</a>
+
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Pos/left_menu" />
+<div class="content">
+<div class="hd"><a href="__CONTROLLER__">{:L('_APPSTORE_')}</a></div>
+<div class="mall_list da-thumbs" id="da-thumbs">
+<ul class="clearfix">
+<volist name="list" id="vo" >
+<li>
+<a href="/posappstore/appview/app_id/{$vo['app_id']}.html">
+<img src="{$vo['app_logo']}">
+<h4>{$vo['app_name']}</h4>
+<p>{$vo['apt_name']}</p>
+<div class="show_info">
+<h4>{$vo['app_name']}</h4>
+<p class="org">{:L('_DEV_NAME_')}: {$vo['dev_name']}</p>
+<p class="hidden_h">{$vo['app_intro']}</p>
+<button class="btn app_btn"><eq name="vo['app_pay_type']" value="0">
+{:L('_FREE_')}
+<else/>
+{$vo['currency_sign']} {$vo['app_price']/100|number_format=###,2} /
+<switch name="vo['app_pay_type']" >
+<case value="0">{:L('_FREE_')}</case>
+<case value="1">{:L('_DAY_')}</case>
+<case value="2">{:L('_WEEK_')}</case>
+<case value="3">{:L('_MONTH_')}</case>
+<case value="4">{:L('_QUARTER_')}</case>
+<case value="5">{:L('_YEAR_')}</case>
+<case value="6">{:L('_ONCE_')}</case>
+<default />unknown
+</switch></eq></button>
+</div>
+</a>
+</li>
+</volist>
+</ul>
+<div class="page top30 clearfix">{$page}</div>
+</div>
+</div>
+</div>
+</div>
+
+<include file="./footer" />
+</body>
+</html>

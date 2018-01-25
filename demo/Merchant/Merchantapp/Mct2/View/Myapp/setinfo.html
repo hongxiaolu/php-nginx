@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$rows['app']['app_name']} - {:L('_APPSTORE_')}</title>
+<include file="./css" />
+<script language="javascript" src="/Public/mct2/js/setinfo.js"></script>
+<style>
+dl{padding:10px;}
+dl dt{float:left;width:100%;text-align:left;font-weight:bold;}
+dl dd{float:left;text-align:left;width:100px;}
+</style>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<menu class="mall_menu">
+<h2>- {$rows['app']['app_name']} -</h2>
+<div class="mall_menu_box">
+<img src="{$rows['app']['app_logo']}">
+</div>
+</menu>
+<form name="formbuy" method="post" action="__CONTROLLER__/setinfo_save" onSubmit="return ttgValidata(this)">
+<div class="content">
+<div class="hd">{:L('_MYAPP_SET_INFO_')}</div>
+<div class="table pd20 ">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th width="20%">{:L('_MYAPP_SHOP_NO_')}</th>
+<th width="70%">{:L('_MYAPP_AUTH_ROLES_')}</th>
+<th width="10%">{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="rows['shop']" id="vo">
+<if condition="in_array($vo['shop_no'], $map['shop_no'])">
+<tr>
+<td>{$vo['shop_name']}</td>
+<td class="role_tr"></td>
+<td>
+<input type="hidden" name="sap_id[]" id="sap_id" value="{$vo['sap_id']}">
+<input type="hidden" name="roles[]" id="roles" value="{$vo['roles']}">
+<label><input value="" id="checkall" onClick="checkboxall(this,1)" type="checkbox">{:L('_SELECT_ALL_')}</label>
+</td>
+</tr>
+</if>
+</volist>
+</tbody>
+</table>
+<input type="hidden" id="app_id" name="app_id" value="{$rows['app']['app_id']}">
+<div class="top40 bottom70"><div class="center_block"><button type="submit" class="btn blue_btn left20">{:L('_OK_')}</button><button type="button" onClick="window.history.back()" class="btn left80 gray_btn2">{:L('_BACK_')}</button></div></div>
+</div>
+</div>
+</form>
+</div>
+</div>
+<script language="javascript">
+var role_str='<dl><dt>{:L('_MYAPP_SYS_ROLES_')}</dt><foreach name="rows['role']" item="vo2"><eq name="vo2['role_mct_no']" value="0"><dd class="checkbox_input"><label><input type="checkbox" value="{$vo2['role_id']}">{$vo2['role_name']}</label></dd></eq></foreach></dl><div class="clearfix"></div><dl><dt>{:L('_MYAPP_DIY_ROLES_')}</dt><foreach name="rows['role']" item="vo2"><gt name="vo2['role_mct_no']" value="0"><dd class="checkbox_input"><label><input type="checkbox" value="{$vo2['role_id']}">{$vo2['role_name']}</label></dd></gt></foreach></dl>';
+</script>
+<include file="./footer" />
+</body>
+</html>

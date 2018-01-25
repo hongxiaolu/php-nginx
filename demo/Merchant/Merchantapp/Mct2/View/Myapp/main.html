@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_MY_APP_')} - {$admin['mct_name']}</title>
+<script src="/Public/js/jquery-1.8.0.min.js"></script>
+<script type="application/javascript">
+$(function(){
+	setTimeout(function(){
+		try{
+			goappform.submit();	
+		}catch(e){
+			$("form").submit();
+		}
+	},500)	
+})
+</script>
+</head>
+<body>
+<div align="center">
+<form action="{$rows['mct_url']}" id="goappform" name="goappform" method="post">
+<img src="{$rows['app_logo']}">
+<input type="hidden" name="app_token" value="{$app_token}">
+<input type="hidden" name="data" value="{$data}">
+<input style="font-size:16px;border:0px; background-color:#FFFFFF" type="submit" name="" value="{:L('_MYAPP_ENTER_TIPS_',array('app_name'=>$rows['app_name']))}">
+</form>
+</div>
+</body>
+</html>

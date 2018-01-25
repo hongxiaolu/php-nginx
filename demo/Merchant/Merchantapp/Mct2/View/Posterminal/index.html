@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>机器管理 - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Pos/left_menu" />
+<div class="content">
+<div class="hd">机器管理</div>
+<form method="post" action="/posterminal/set">
+<dl>
+<dt>机器信息<span class="org_btn"><a href="/posterminal/online_list">查看在线机器</a></span></dt>
+<dd><span class="a">机器号： </span>
+<span class="org b"><input class="input_text" style="width:110px;" type="text" name="tml_no" value="{:session('tml_no')}" placeholder="可为空"></span>
+<span class="a">机器码： </span>
+<span class="org b"><input class="input_text" type="text" style="width:110px;" name="device_code" value="{:session('device_code')}"></span> 
+<span class="a">机器型号： </span>
+<span class="org b"><input class="input_text" type="text" style="width:110px;" name="tml_type" value="{:session('tml_type')}"></span> 
+
+<input type="submit" value="设置"></dd>
+
+<dd><span class="a">状态：</span><neq name="tml_token" value=""><span class="green b">在线</span><else/><span class="org b">离线</span></neq><span class="a">机器名称： </span><span class="org b">{$tml_name|default='未知'}</span></dd>
+</dl>
+</form>
+<dl>
+<dt>机器操作</dt>
+<neq name="tml_token" value="">
+<dd><form method="post" action="/Posterminal/edit_name"><span class="a">修改机器名称： </span><span><input class="input_text" type="text" name="tml_name" value="{$tml_name}"></span><span class="green_btn">&nbsp;<input type="submit" value="修改"></span></dd></form>
+
+<dd><span class="a">激活码： </span>
+<eq name="cdkey" value="">
+<form method="post" action="/Posterminal/cdkey">
+<span><input class="input_text" type="text" name="cdkey" value="{$cdkey}"></span><span class="green_btn">&nbsp;<input type="submit" value="激活"></span>
+</form>
+<else/>
+{$cdkey}
+</eq>
+</dd>
+</neq>
+<dd><span class="a">状态操作： </span><eq name="tml_token" value=""><span class="green_btn"><a href="/posterminal/online">上线</a>&nbsp;&nbsp;&nbsp;</span></eq><span class="org_btn"><neq name="tml_token" value=""><a href="/posterminal/offline">下线</a></span><span class="green_btn">&nbsp;&nbsp;&nbsp;<a href="/posterminal/heartbeat">机器心跳</a></neq>&nbsp;&nbsp;&nbsp;<a href="/posterminal/user_heartbeat">用户心跳</a></span></dd>
+</dl>
+</div>
+</article>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

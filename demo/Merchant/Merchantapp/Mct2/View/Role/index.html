@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_ROLE_MANGER_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript">
+$(function(){ttgWeb.oddColor();})
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd"><button class="btn alert_btn1 fr right20 top16" onClick="document.location.href='__CONTROLLER__/add'">{:L('_ROLE_ADD_')}</button>{:L('_SYS_ROLE_MANGER_')}</div>
+<div class="table pd20">
+
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_ROLE_NAME_')}</th>
+<th>{:L('_ROLE_DESC_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<volist name="list" id="vo">
+<tr>
+<td>{$vo['role_name']}</td>
+<td>{$vo['role_desc']}</td>
+<td class="blue">
+<a href="__CONTROLLER__/auth/role_id/{$vo['role_id']}">{:L('_ROLE_AUTH_VIEW_')}</a>
+<gt name="vo['role_mct_no']" value="0">
+<a class="left10" href="__CONTROLLER__/edit/role_id/{$vo['role_id']}">{:L('_ROLE_EDIT_')}</a>
+<a class="left10" href="javascript:void(0)" onClick="actbox_confirm('__CONTROLLER__/delete/role_id/{$vo['role_id']}','{:L('_ROLE_DEL_TIP_',array('role_name'=>$vo['role_name']))}',true)">{:L('_ROLE_DELETE_')}</a>
+</gt>
+</td>
+</tr>
+</volist>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

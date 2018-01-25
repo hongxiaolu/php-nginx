@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>订单退款{$rows['ord_no']}</title>
+<include file="./css" />
+<script type="text/javascript" src="/Public/js/sha1.js"></script>
+<link rel="stylesheet" href="/Public/mct2/pos/pos.css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Pos/left_menu" />
+<div class="content">
+<div class="hd">订单退款（{$rows['ord_no']}）</div>
+<div class="tablem pd20">
+<form method="post" action="/Pos/payrefund" onSubmit="return ttgValidata(this)">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<tr>
+<th nowrap>交易类型</th>
+<td><switch name="rows['ord_type']">
+<case value="1">消费</case>
+<case value="2">退款</case>
+<case value="3">充值</case>
+<default />未知
+</switch></td>
+<th nowrap>付款方式</th>
+<td>{$rows['diy_pmt_name']|default=$rows['pmt_name']}</td>
+</tr>
+<tr>
+<th nowrap><switch name="rows['ord_type']">
+<case value="1">付款单号</case>
+<case value="2">退款单号</case>
+<case value="3">充值单号</case>
+<default />未知
+</switch></th>
+<td>{$rows['ord_no']}</td>
+<th nowrap>订单名称</th>
+<td>{$rows['ord_name']}</td>
+</tr>
+<tr>
+<th nowrap>原单金额</th><td>{$rows['currency_sign']}{$rows['original_amount']/100|number_format=###,2}</td>
+<th nowrap>优惠金额</th><td>{$rows['currency_sign']}{$rows['discount_amount']/100|number_format=###,2}</td>
+</tr>
+<tr>
+<th nowrap>
+实际交易金额
+</th><td>{$rows['currency_sign']}{$rows['trade_amount']/100|number_format=###,2}</td>
+<th nowrap>抹零金额</th><td>{$rows['currency_sign']}{$rows['ignore_amount']/100|number_format=###,2}</td></tr>
+<tr>
+<th nowrap>订单状态</th>
+<td><switch name="rows.status">
+<case value="1">交易成功</case>
+<case value="2">未付款</case>
+<case value="4">已取消</case>
+<case value="9">等待用户输入密码</case>
+<default />未知
+</switch></td>
+<th nowrap>收银机器</th><td>
+<neq name="rows['tml_no']" value="">{$rows['tml_name']}（{$rows['tml_no']}）<else/>网络机器</neq>
+</td></tr>
+<tr>
+<th nowrap>交易帐号</th><td>{$rows['trade_account']}</td>
+<th nowrap>交易时间</th><td>{$rows['trade_time']}</td>
+</tr>
+<tr>
+<th nowrap>交易号</th>
+<td>{$rows['trade_no']}</td>  
+<th nowrap>交易完成时间</th>
+<td>{$rows['trade_pay_time']}</td>
+
+</tr>
+<tr>
+<th nowrap>原始订单</th>
+<td><a href="__CONTROLLER__/view?ord_no={$rows['original_ord_no']}">{$rows['original_ord_no']}</td>
+<th nowrap>订单备注</th>
+<td>{$rows['remark']}</td> 
+</tr>
+<tr>
+<th nowrap>收银员帐号</th><td>{$rows['scr_user_name']}</td>
+<th>收银员姓名</th><td>{$rows['scr_true_name']}</td>
+</tr>
+
+<tr>
+  <th nowrap>退款金额</th>
+  <td><input class="input_text" type="text" name="refund_amount" value="{$rows['trade_amount']/100}" placeholder="退款金额"></td>
+  <th nowrap>退款单号</th>
+  <td>{$refund_ord_no}</td>
+</tr>
+<tr>
+  <th nowrap>退款订单名称</th>
+  <td><input value="（退款）{$rows['ord_name']}" maxlength="25" class="txt required" type="text" name="refund_ord_name" placeholder="退款订单名称"></td>
+  <th nowrap>退款备注</th>
+  <td><input class="txt" maxlength="50" class="input_text" type="text" name="refund_remark" placeholder="退款备注"></td>
+</tr>
+<eq name="rows['pmt_tag']" value="Chinaums">
+<tr>
+  <th nowrap>退款银行卡号</th>
+  <td><input class="txt" style="width:80%" type="text" name="refund_trade_account" placeholder="退款银行卡号"></td>
+  <th nowrap>退款交易号</th>
+  <td><input class="txt" style="width:80%" type="text" name="refund_trade_no" placeholder="退款交易号"></td>
+</tr>
+<tr>
+  <th nowrap>交易结果</th>
+  <td colspan="3"><textarea style="width:98%;margin:5px 0px 5px 0px;" name="refund_trade_result" placeholder="交易报文"></textarea></td>
+</tr>
+</eq>
+<tr>
+  <th nowrap>主管密码</th>
+  <td colspan="3"><input title="主管密码" class="txt required"  type="text" onfocus="this.type='password'" autocomplete="off" name="shop_pass" placeholder="主管密码"></td>
+</tr>
+</table>
+<neq name="rows['app_list']" value="">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="commonTable">
+<tr>
+<th>应用退货</th>
+<th>应用名称</th>
+<th>交易号</th>
+<th>交易类型</th>
+<th>交易金额</th>
+<th>变动金额</th>
+<th>备注</th>
+<th>状态</th>
+</tr>
+<volist name="rows['app_list']" id="rows2">
+<tr>
+<td>
+<input type="checkbox" checked name="app_id[]" value="{$rows2['app_id']}">
+<input type="hidden" name="trade_no[]" value="{$rows2['trade_no']}">
+</td>
+<td>{$rows2['app_name']}</td>
+<td>{$rows2['trade_no']}</td>
+<td><switch name="rows2['type']">
+<case value="1">订单</case>
+<case value="2">折扣</case>
+<case value="3">积分</case>
+<case value="4">礼品</case>
+<case value="5">抵现</case>
+<default />未知
+</switch></td>
+<td>{$rows['currency_sign']}{$rows2['amount']/100}</td>
+<td>
+<eq name="rows2['type']" value="3">
+{$rows2['discount']}
+<else/>
+{$rows['currency_sign']}{$rows2['discount']/100}
+</eq>
+</td>
+<td>{$rows2['remark']}</td>
+<td><switch name="rows2['status']">
+<case value="1">交易成功</case>
+<case value="2">待交易</case>
+<case value="3">部分取消</case>
+<case value="4">已取消</case>
+<default />未知
+</switch></td>
+</tr>
+</volist>
+</table>
+</neq>
+
+
+<div class="center_block bottom70">
+<button type="submit" class="btn blue_btn">确定退款</button>
+<button type="button" class="btn gray_btn2 left50" onClick="window.history.back()">{:L('_BACK_')}</button>
+</div>
+<input type="hidden" name="refund_ord_no" value="{$refund_ord_no}">
+<input type="hidden" name="tml_token" value="{$tml_token}"></td>
+<input type="hidden" name="ord_no" value="{$rows['ord_no']}">
+<input type="hidden" name="trade_amount" value="{$rows['trade_amount']}">
+<input type="hidden" name="trade_account" value="{$rows['trade_account']}">
+<input type="hidden" name="trade_no" value="{$rows['trade_no']}">
+<input type="hidden" name="trade_result" value="{$rows['trade_result']}">
+<input type="hidden" id="GO_SUBMIT" value="1">
+</form>
+
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

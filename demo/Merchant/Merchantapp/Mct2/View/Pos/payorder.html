@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>交易结果 - {$admin['shop_name']} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">交易失败</div>
+<div class="from_box left_m">
+<h2>{$result['msg']}</h2>
+{:dump($result)}
+<div class="center_block bottom70">
+<button type="button" class="btn gray_btn2" onClick="window.history.back()">{:L('_BACK_')}</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

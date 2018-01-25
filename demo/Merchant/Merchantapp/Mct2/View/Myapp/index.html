@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_MY_APP_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<menu>
+<h2>- {:L('_MYAPP_TYPE_')} -</h2>
+<ul>
+<foreach name="app_type" item="vo">
+<li <eq name="map['apt_id']" value="$vo['apt_id']">class="cur"</eq>><a href="__CONTROLLER__/index/apt_id/{$vo['apt_id']}/app_size/{$map['app_size']}">{$vo['apt_name']}</a></li>
+</foreach>
+</ul>
+</menu>
+<div class="content">
+<div class="hd"><a href="__CONTROLLER__">{:L('_MY_APP_')}</a><script language="javascript">if($('menu .cur').length>0){document.write(" &gt; "+$("menu .cur").text())}else{document.write(" &gt; {:L('_ALL_')}")}</script></div>
+<div class="app_box">
+<ul class="clearfix">
+<neq name="list" value="">
+<volist name="list" id="vo" >
+<li>
+<a href="__CONTROLLER__/entry/app_id/{$vo['app_id']}.html">
+<img src="{$vo['app_logo']}">
+<h4>{$vo['app_name']}</h4>
+<p>{$vo['apt_name']}</p>
+</a>
+</li>
+</volist>
+</ul>
+<div class="page top30 clearfix">{$page}</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_APPSET_SET_AUTH_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript" src="/Public/mct2/js/admin.js"></script>
+<script type="text/javascript">
+var json='({$rows['auth']|json_encode})';
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<form method="post" action="__CONTROLLER__/setauth_save" onSubmit="return ttgValidata(this)">
+<div class="content">
+<div class="hd">{:L('_APPSET_SET_AUTH_')}</div>
+<div class="perm_from top20">
+<dl>
+<dt>{:L('_APPSET_APP_NAME_')} : </dt>
+<dd class="space_dd bottom20">{$rows['app']['app_name']}</dd>
+<dt>{:L('_APPSET_SHOP_NAME_')} : </dt>
+<dd class="space_dd bottom20">{$rows['app']['shop_name']}</dd>
+</dl>
+<dl id="checked_all_list">
+<dt>{:L('_APPSET_SET_ROLE_')} : </dt>
+<dd>
+<div class="perm_line">{:L('_APPSET_SYS_ROLE_')}</div>
+<div class="perm_list checkbox clearfix">
+<ul>
+<li class="checkbox_input" style="position:relative;margin-left:-80px;"><label id="checked_all"><input id="checked_input" type="checkbox"/> {:L('_SELECT_ALL_')}</label></li>
+<foreach name="rows['role']" item="vo">
+<eq name="vo['role_mct_no']" value="0">
+<li class="checkbox_input"><label><input type="checkbox" name="roles[]" value="{$vo['role_id']}" 
+<neq name="rows['app']['roles']" value="">
+<if condition="(in_array($vo['role_id'],$rows['app']['roles']))">checked</if>
+</neq>
+/> <span id="{$vo['role_auths']}">{$vo['role_name']}</span></label></li>
+</eq>
+</foreach>
+</ul>
+</div>
+<div class="perm_line">{:L('_APPSET_DIY_ROLE_')}</div>
+<div class="perm_list checkbox clearfix bottom10">
+<ul>
+<foreach name="rows['role']" item="vo">
+<gt name="vo['role_mct_no']" value="0">
+<li class="checkbox_input"><label><input type="checkbox" name="roles[]" value="{$vo['role_id']}" 
+<neq name="rows['app']['roles']" value="">
+<if condition="(in_array($vo['role_id'],$rows['app']['roles']))">checked</if>
+</neq>/> <span id="{$vo['role_auths']}">{$vo['role_name']}</span></label></li>
+</gt>
+</foreach>
+</div>
+</dd>
+</dl>
+
+<dl class="top20 checkbox">
+<dt class="bottom10">{:L('_APPSET_SWITCH_')} : </dt>
+<dd>
+<div class="perm_list checkbox clearfix">
+<ul>
+<li class="checkbox_input"><label><input type="radio" name="status" value="1" <eq name="rows['app']['status']" value="1">checked</eq>>{:L('_APPSET_TURN_ON_')}</label></li>
+<li class="checkbox_input"><label><input type="radio" name="status" value="2" <eq name="rows['app']['status']" value="2">checked</eq>>{:L('_APPSET_TURN_OFF_')}</label></li>
+<li class="checkbox_input"><label><input type="radio" name="status" value="5" <eq name="rows['app']['status']" value="5">checked</eq>>{:L('_APPSET_TURN_ON_PC_')}</label></li>
+<li class="checkbox_input"><label><input type="radio" name="status" value="6" <eq name="rows['app']['status']" value="6">checked</eq>>{:L('_APPSET_TURN_ON_TML_')}</label></li>
+<eq name="rows['app']['status']" value="4">
+<li class="checkbox_input"><label><input type="radio" name="status" value="2" checked>{:L('_APPSET_EXPIRED_')}</label></li>
+</eq>
+</ul>
+</div>
+</dd>
+</dl>
+
+<dl>
+<dt>{:L('_APPSET_AUTH_TIP_')} : </dt>
+<dd id="moreset_open">
+<div class="perm_line">
+<input onClick="$('.moreset_open').toggle();" type="checkbox">
+<span class="moreset_open" style="display:none">{:L('_APPSET_AUTH_TIP2_')}</span>
+</div>
+<div class="moreset_open perm_list checkbox clearfix" style="display:none">
+<ul>
+<foreach name="rows['app']['app_auth']" item="vo">
+<li class="checkbox_input"><label><input type="checkbox" name="auths[]" value="{$vo}" <if condition="in_array($vo,$rows['app']['auths'])">checked</if>>{:L('_APPSET_AUTH_'.$vo.'_')}</label></li>
+</foreach>
+</ul>
+</div>
+</dd>
+</dl>
+
+</div>
+<div class="center_block bottom70 top70">
+<button  class="btn blue_btn">{:L('_SAVE_')}</button><button type="button" onClick="window.history.back()" class="btn gray_btn2 left50">{:L('_CANCEL_')}</button>
+</div>
+</div>
+
+</div>
+</div>
+<input type="hidden" name="sap_id" value="{$rows['app']['sap_id']}">
+<input type="hidden" id="GO_BACK">
+</form>
+<include file="./footer" />
+</body>
+</html>

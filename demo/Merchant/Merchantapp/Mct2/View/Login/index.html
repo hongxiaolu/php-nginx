@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SIGN_IN_')} - {:C('mct_site_name')}</title>
+<include file="./css" />
+</head>
+<body>
+	
+<include file="./header" />
+	
+<form action="__CONTROLLER__/checklogin" method="post" onSubmit="return ttgValidata(this)">	
+<div class="login_bg" <eq name="login_bg" value="1">style="background-image:url(/Me/login_bg.jpg)"</eq>>
+<div class="main">	
+<div class="login_info">
+{:L('_LOGIN_MAIN_TEXT_')}
+</div>
+<div class="login_box">
+<ul>
+<li><input title="{:L('_LOGIN_SIGN_NAME_')}" class="required bg1 txt" value="{$login_user_name}" name="user_name" type="text" placeholder="{:L('_LOGIN_SIGN_NAME_')}"/></li>
+<li><input title="{:L('_LOGIN_SIGN_PASS_')}" name="password" class="required bg2 txt" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_LOGIN_SIGN_PASS_')}" /></li>
+<eq name="verify_code" value="true">
+<li class="ceat"><input autocomplete="off" maxlength="4" name="code" title="{:L('_LOGIN_SIGN_CODE_')}" class="bg3 txt required" type="text" placeholder="{:L('_LOGIN_SIGN_CODE_')}" /><img id="veryficodepic" src="/Verifycode?t={$timerand}" width="125" height="40" alt="" /><a href="javascript:veryficodepic()" class="ref"></a>
+<div class="clearfix">
+<div class="fr top10 blue2 checkbox"><span class="checkbox_input"><label><input name="remember_acct" type="checkbox" value="on" checked>{:L('_LOGIN_SIGN_REMEMBER_')}</label></span></div>
+</div>
+</li>
+<else/>
+<li><div class="top10 blue2 checkbox"><span class="checkbox_input"><label><input name="remember_acct" type="checkbox" value="on" checked>{:L('_LOGIN_SIGN_REMEMBER_')}</label></span></div></li>
+</eq>
+<li class="top20">
+<button class="btn login_btn">{:L('_SIGN_IN_')}</button>
+<p class="blue2 size_12 top10"><a href="/index/help" class="fr">{:L('_LOGIN_HELP_')}</a><a href="/login/forgetpass">{:L('_LOGIN_FORGET_PASS_')}</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<input type="hidden" id="GO_NOW" value="1">
+</form>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>在线机器 - {$admin['shop_name']}</title>
+<include file="./css" />
+<link href="/Public/mct2/js/yu/yu.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/Public/mct2/js/yu/yu.js"></script>
+<script type="text/javascript" src="/Public/mct2/js/msg.js"></script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">在线机器</div>
+<article class="boxRightCon">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="commonTable">
+<tbody>
+<tr>
+<th scope="col" nowrap>机器名称</th>
+<th scope="col" nowrap>机器号</th>
+<th scope="col" nowrap>机器码</th>
+<th scope="col" nowrap>登录时间</th>
+<th scope="col" nowrap>活动时间</th>
+<th scope="col" nowrap>收银员</th>
+<th scope="col" nowrap>操作</th>
+</tr>
+<volist name="list" id="vo" >
+<tr>
+<td>{$vo['tml_name']}</td>
+<td>{$vo['tml_no']}</td>
+<td>{$vo['device_code']}</td>
+<td>{$vo['login_time']}</td>
+<td>{$vo['access_time']}</td>
+<td>{$vo['scr_true_name']}</td>
+<td>
+<span class="green_btn"><a href="javascript:;" onClick="sendmsg('to_type=6&msg_to={$vo['tml_no']}')">发送消息</a></span>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+{$page}
+</article>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

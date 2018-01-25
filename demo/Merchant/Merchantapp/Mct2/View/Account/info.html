@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_MORE_INFO_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_ACCOUNT_MORE_INFO_')} </div>
+<div class="hd_line">{:L('_ACCOUNT_CASH_BANKCARD_')}</div>
+<div class="bank_list clearfix">
+<ul>
+<li>
+<div class="bank_bg">
+<b></b>
+<p>{$rows['bank_name']}</p>
+<p>{$rows['account_no']|substr=###,0,6}******{$rows['account_no']|substr=###,-3}</p>	
+</div>
+<h4>{:L('_ACCOUNT_CASH_DEFAULT_')}</h4>
+</li>
+</ul>
+</div>
+
+<!--<div class="hd_line">{:L('_ACCOUNT_SET_PASS_')} : </div>
+<div class="hd_line2 size_14">{:L('_ACCOUNT_PAY_PASS_')}　
+<eq name="rows['act_password']" value="1">
+{:L('_ACCOUNT_IS_SET_')}
+<else/>
+<span class="checkbox left50">
+<em class="checkbox_input">
+<label onClick="$('.show_from').hide()" ><input checked onClick="$('.show_from').hide()" name="openpass" type="radio" value="" >{:L('_ACCOUNT_NO_SET_')}</label>
+</em>
+</span>
+
+
+</eq>
+
+<neq name="rows['act_password']" value="1">
+<span class="checkbox left50">
+<em class="checkbox_input">
+<label onClick="$('.show_from').show()" ><input onClick="$('.show_from').show()" name="openpass" type="radio" value="" >{:L('_ACCOUNT_OPEN_PAY_PASS_')}<i class="gray2 left20 size_12">{:L('_ACCOUNT_OPEN_PAY_PASS_TIP_')}</i></label>
+</em>
+</span>
+<else/>
+<span class="left160">
+<button onClick="$('.show_from').show()" class="alert_btn1">{:L('_EDIT_')}</button>
+</span>
+</neq>
+</div>
+
+
+<form action="__CONTROLLER__/password" method="post" onSubmit="return ttgValidata(this)">
+<div class="show_from" style="display:none">
+<dl>
+<dt>{:L('_ACCOUNT_NEW_PASS_')} : </dt>
+<dd><input title="{:L('_ACCOUNT_NEW_PASS_')}" name="password" class="txt required" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_ACCOUNT_PAY_PASS_TIP_')}" /></dd>
+<dt>{:L('_ACCOUNT_NEW_PASS2_')} : </dt>
+<dd><input title="{:L('_ACCOUNT_NEW_PASS2_')}" name="password2" class="txt required" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_ACCOUNT_NEW_PASS2_TIP_')}" /></dd>
+<dt>{:L('_ACCOUNT_LOGIN_PASS_')} : </dt>
+<dd><input title="{:L('_ACCOUNT_LOGIN_PASS_')}" name="login_password" class="txt required" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_ACCOUNT_LOGIN_PASS_TIP_')}" /></dd>
+</dl>
+<button type="submit" class="btn blue_btn">{:L('_SUBMIT_')}</button>
+</div>
+</form>-->
+
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

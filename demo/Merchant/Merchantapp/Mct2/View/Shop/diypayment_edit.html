@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SHOP_PAYMENT_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<form action="__CONTROLLER__/diypayment_editsave" method="post"  onSubmit="return ttgValidata(this)">
+<div style="padding:30px">
+<div class="alert_mod">
+<dl>
+<dt>收款方式：</dt>
+<dd><input  maxlength="20" value="{$map['pmt_name']}" name="pmt_name" title="收款方式" class="txt required"  type="text" placeholder="收款方式" /></dd>
+</dl>
+</div>
+<div class="alert_btns">
+<button type="submit" class="btn alert_btn1">确认</button><button onClick="parent.layer.closeAll()" class="btn alert_btn2 left20">取消</button>
+</div>
+</div>
+<input type="hidden" id="PARENT_RELOAD" value="1">
+<input type="hidden" name="pmt_id" value="{$map['pmt_id']}">
+</form>
+</body>
+</html>

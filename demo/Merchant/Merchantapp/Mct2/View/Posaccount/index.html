@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>门店T账户 - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">账户总览</div>
+<article class="boxRightCon">
+<div class="zh_zongl">
+<dl>
+<dt>账户信息<span class="org_btn"><a href="/posaccount/info">账户详情</a> <include file="menu" /></span></dt>
+<dd><span class="a">账户余额： </span><span class="org b">￥{$rows['act_balance']/100}</span><span class="org_btn"><a href="/posaccount/recharge">充值</a></span></dd>
+<dd><span class="a">可提现金额： </span><span class="green b">￥{$rows['act_cash_amount']/100}</span><span class="green_btn"><a href="/posaccount/cash">提现</a></span></dd>
+</dl>
+<dl>
+<dt><span class="a">今日收支</span> ￥{$report['in']/100-$report['out']/100}</dt>
+<dd><ul><li class="c"><span class="a">今日总收入：</span><span class="org b">￥{$report['in']/100}</span></li><li><span class="a">今日总支出：</span><span class="green b">￥{$report['out']/100}</span></li></ul></dd>
+<dd><ul><li class="c"><span class="a">充值：</span><span class="b">￥{$report[1]/100}</span></li><li><span class="a">提现：</span><span class="b">￥{$report[5]/100}</span></li></ul></dd>
+<dd><ul><li class="c"><span class="a">应用收入：</span><span class="b">￥{$report[3]/100}</span></li><li><span class="a">购买应用：</span><span class="b">￥{$report[6]/100}</span></li></ul></dd>
+<dd><ul><li class="c"><span class="a">转入：</span><span class="b">￥{$report[4]/100}</span></li><li><span class="a">营销支出：</span><span class="b">￥{$report[8]/100}</span></li></ul></dd>
+<dd><ul><li class="c"><span class="a">其它收入：</span><span class="b">￥{$report[9]/100}</span></li><li><span class="a">其它支出：</span><span class="b">￥{$report[7]/100}</span></li></ul></dd>
+
+
+
+
+</dl>
+</div>
+</article>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

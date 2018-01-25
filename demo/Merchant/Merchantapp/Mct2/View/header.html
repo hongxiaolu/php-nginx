@@ -1,0 +1,59 @@
+<!-- 顶部区 -->
+<div class="tip_box <if condition="!isset($menuid)">login_en</if>">
+<div class="main">
+<div class="fr user_info">
+<if condition="isset($menuid)">
+{:L('_WELCOME_')}
+<span class="user"><i class="org">{$admin['true_name']}</i>
+<div class="show_user">
+<b></b>
+<img src="{$admin['face']|default='/Public/mct2/images/face.jpg'}" />
+<h4 class="blue2">{$admin['mct_name']}</h4>
+<p class="gray">{:L('_USER_ACCOUNT_')}：<span class="org">{$admin['user_name']}</span></p>
+<p class="gray">{:L('_USER_ROLES_')}：<span class="org">{$admin['role_name']}</span></p>
+</div>
+</span>
+<span class="news newmessage"><a href="/message" target="_top">{:L('_MSG_')}</a>
+<?php
+$heartbeat=session('heartbeat');
+if(!empty($heartbeat) && $heartbeat['count']>0){
+echo '<b></b>';
+}
+?>
+</span>
+<span class="exit"><a href="/login/logout" target="_top">{:L('_SIGN_OUT_')}</a></span>
+<span><a href="/index/help" target="_top">{:L('_HELP_')}</a></span>
+</if>
+<if condition="strlen(C('LANG_LIST')) gt 5">
+<span class="en"><i>{:L('_CHANGE_LANG_')}</i>
+<div class="show_en">
+<b></b>
+<if condition="strstr(C('LANG_LIST'),'zh-cn')"><a href="/lang?lang=zh-cn" target="_top">简体中文</a></if>
+<if condition="strstr(C('LANG_LIST'),'zh-tw')"><a href="/lang?lang=zh-tw" target="_top">繁體中文</a></if>
+<if condition="strstr(C('LANG_LIST'),'en-us')"><a href="/lang?lang=en-us" target="_top">English</a></if>
+</div>
+</span>
+</if>
+</div>
+</div>
+</div>
+<!-- 导航区 -->
+<nav>
+<div class="main">
+<if condition="isset($menuid)">
+<div class="fr">
+<ul>
+<li <eq name="menuid" value="1">class="cur"</eq>><a href="/" target="_top">{:L('_HOME_')}</a></li>
+<li <eq name="menuid" value="2">class="cur"</eq>><a href="/appstore" target="_top">{:L('_APPSTORE_')}</a></li>
+<li <eq name="menuid" value="3">class="cur"</eq>><a href="/myapp" target="_top">{:L('_MY_APP_')}</a></li>
+<li <eq name="menuid" value="5">class="cur"</eq>><a href="/account" target="_top">{:L('_T_ACCOUNT_')}</a></li>
+<li <eq name="menuid" value="4">class="cur"</eq>><a href="/sys" target="_top">{:L('_SYS_ADMIN_')}</a></li>
+</ul>
+</div>
+</if>
+<a href="/" target="_top"><img src="/Me/logo.jpg" alt="logo" /></a>
+<span>{:C('mct_site_name')}</span>
+<!--<a style=" float:right; margin:33px 0" href="https://www.baidu.com/s?wd=谷歌浏览器" target="_top">请下载使用<font color="red">谷歌浏览器</font></a>-->
+</div>
+
+</nav>

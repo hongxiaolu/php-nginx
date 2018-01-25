@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_CASH_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd"><neq name="map['shop_no']" value="">{$rows['shop_info']['shop_name']}</neq>{:L('_ACCOUNT_CASH_')}</div>
+<form action="__CONTROLLER__/cashsave" method="post" onSubmit="return ttgValidata(this)">
+<div class="from_box left_m">
+<dl>
+<dt>{:L('_ACCOUNT_CASH_')} : </dt>
+<dd class="space_dd">
+
+{$rows['account_no']|substr=###,0,6}******{$rows['account_no']|substr=###,-3}<span class="left20">{$rows['bank_name']}</span>
+
+</dd>
+<dt>{:L('_ACCOUNT_CASH_AMOUNT_')} : </dt>
+<dd><input title="{:L('_ACCOUNT_CASH_AMOUNT_')}" class="txt required" name="amount" type="text"/> <span class="left10">{:L('_ACCOUNT_CASH_AMOUNT_TIP_',array('amount'=>number_format($rows['act_cash_amount']/100,2)))}</span></dd>
+<eq name="rows['act_password']" value="1">
+<dt>{:L('_ACCOUNT_PAY_PASS_')} : </dt>
+<dd><input title="{:L('_ACCOUNT_PAY_PASS_')}" class="txt required" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_ACCOUNT_PAY_PASS_')}" /></dd>
+</eq>
+</dl>
+<div class="top40"><button type="submit" class="btn blue_btn  left20">{:L('_ACCOUNT_CASH_')}</button><button type="button" onClick="window.history.back()" class="btn left80 gray_btn2">{:L('_CANCEL_')}</button></div>
+</div>
+<neq name="map['shop_no']" value=""><input type="hidden" name="shop_no" value="{$map['shop_no']}"></neq>
+<input type="hidden" id="DOCUMENT_RELOAD" value="1">
+</form>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

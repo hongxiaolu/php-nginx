@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$map['news_type_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<div class="help_box">
+<div class="hd">{$map['news_type_name']}</div>
+<div class="article_list">
+<ul>
+<volist name="list" id="vo" >
+<li><span>{$vo['news_time']}</span><a href="__CONTROLLER__/detail/news_id/{$vo['news_id']}">{$vo['news_title']}</a></li>
+</volist>
+</ul>
+<div class="page top30 clearfix">
+{$page}
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_INDEX_ALIPAY_')}</title>
+<include file="./css" />
+<link href="/Public/mct2/css/2.0/alipay.css" rel="stylesheet"/>
+<script language="javascript" src="/Public/js/jquery.qrcode.min.js"></script>
+<script language="javascript">
+$(function(){
+	jQuery('#qrcode').qrcode({width: 200,height: 200,text: "{$url}",src:"/Public/mct2/images/qrcode/Alipay.png"});
+})
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="alipay_main">
+<div class="alipay_box2">
+<h3>{:L('_INDEX_ALIPAY_')}</h3>
+<ul>
+<li class="n1">{:L('_INDEX_ALIPAY_SETP_1_')}<a target="_blank" href="https://doc.open.alipay.com/doc2/detail?treeId=107&articleId=103864&docType=1" class="underline org">{:L('_INDEX_ALIPAY_SETP_1_2_')}</a></li>
+<li class="n2">{:L('_INDEX_ALIPAY_SETP_2_')}<a class="underline org" href="https://e.alipay.com" target="_blank">https://e.alipay.com</a>{:L('_INDEX_ALIPAY_SETP_2_2_')}</li>
+<li class="n3">{:L('_INDEX_ALIPAY_SETP_3_')}</li>
+<li class="img">
+<div class="l">
+<h4>{:L('_INDEX_ALIPAY_SETP_4_1_')}</h4>
+<p>{:L('_INDEX_ALIPAY_SETP_4_2_')}</p>
+<div id="qrcode"></div>
+</div>
+<div class="c"></div>
+<div class="r">
+<h4>{:L('_INDEX_ALIPAY_SETP_4_3_')}</h4>
+<p>{:L('_INDEX_ALIPAY_SETP_4_4_')}</p>
+<a href="{$url}" class="btn blue_btn">{:L('_INDEX_ALIPAY_SETP_4_5_')}</a>
+</div>
+</li>
+<li class="n4">{:L('_INDEX_ALIPAY_SETP_4_6_')}</li>
+</ul>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_LOGIN_FORGET_PASS_')} - {:C('mct_site_name')}</title>
+<include file="./css" />
+<script type="text/javascript"> 
+function setTimeLimit(s) { 
+	if (s==0) {
+		$("#timeLimit").hide();
+		$("#btn_resend").show();
+		return;
+	}else{
+		s=s-1;
+		$('#timeLimit').html(' {:L("_LOGIN_RE_TIME_LIMIT_")} ');
+		setTimeout(function(){setTimeLimit(s)},1000);
+	} 
+	
+}
+$(function(){setTimeLimit(60)});
+</script> 
+</head>
+<body>
+<include file="./header" />
+<form action="__CONTROLLER__/forgetpass3" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg">
+<div class="main">
+<div class="register_box">
+<div class="hd"><a href="/login">{:L('_LOGIN_ALREADY_ACCOUNT_')}</a>{:L('_LOGIN_FORGET_PASS_')}</div>	
+<div class="register_step">
+<span>1.{:L('_LOGIN_ENTER_USERNAME_')}</span>
+<span class="cur">2.{:L('_LOGIN_ENTER_CODE_NEWPASS_')}</span>
+<span>3.{:L('_LOGIN_SET_OK_')}</span>
+</div>
+<div class="from_box">
+<dl>
+<dt>{:L('_LOGIN_SIGN_NAME_')}</dt>
+<dd><input readonly value="{$map['user_name']}" type="text" title="{:L('_LOGIN_SIGN_NAME_')}" class="txt required" name="user_name" placeholder="{:L('_LOGIN_SIGN_NAME_')}" />
+<span class="left10" id="timeLimit"></span>
+<button id="btn_resend" style="display:none" onClick="document.location.href='/login/forgetpass?user_name={$map['user_name']}'" class="left10 btn search_btn" type="button">{:L('_LOGIN_RE_SEND_')}</button></dd>               
+<neq name="sms_id">
+<dt>{:L('_LOGIN_MOBILE_CODE_')}</dt>
+<dd><input type="hidden" name="sms_id" value="{$sms_id}"><input title="{:L('_LOGIN_MOBILE_CODE_')}" type="text" maxlength="6" name="sms_code" class="txt required" placeholder="{:L('_LOGIN_MOBILE_CODE_')}" /></dd>
+<else/>
+<dt>{:L('_LOGIN_EMAIL_CODE_')}</dt>
+<dd><input type="hidden" name="eml_id" value="{$eml_id}"><input title="{:L('_LOGIN_EMAIL_CODE_')}" type="text" maxlength="6" name="eml_code" class="txt required" placeholder="{:L('_LOGIN_EMAIL_CODE_')}" /></dd>
+</neq>
+<dt>{:L('_LOGIN_NEW_PASS_')}</dt>
+<dd><input title="{:L('_LOGIN_NEW_PASS_')}" type="text" onfocus="this.type='password'" autocomplete="off" name="password" class="txt required" placeholder="{:L('_LOGIN_NEW_PASS_')}" /></dd>
+<dt>{:L('_LOGIN_NEW_PASS2_')}</dt>
+<dd><input title="{:L('_LOGIN_NEW_PASS2_')}" type="text" onfocus="this.type='password'" autocomplete="off" name="password2" class="txt required" placeholder="{:L('_LOGIN_NEW_PASS2_')}" /></dd>
+<dt></dt>
+<dd>
+<div class="error">{$tips}</div>
+</dd>
+</dl>
+</div>
+<div class="center_block"><div><button class="btn blue_btn">{:L('_NEXT_')}</button></div></div>
+</div>
+</div>
+</div>
+</form>
+<include file="./footer" />
+</body>
+</html>

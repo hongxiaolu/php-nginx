@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_TRANSFER_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script src="/Public/js/jQselect.js"></script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_ACCOUNT_TRANSFER_')}</div>
+<form action="__CONTROLLER__/transfer_to" method="post" onSubmit="return ttgValidata(this)">
+<div class="from_box left_m">
+<dl>
+<eq name="map['type']" value="1">
+<dt>{:L('_ACCOUNT_TRANSFER_OUT_ACCT_')} : </dt>
+<dd class="space_dd">{$admin['mct_name']}</dd>
+<dt>{:L('_ACCOUNT_TRANSFER_IN_ACCT_')} : </dt>
+<dd>
+<span class="sel">
+<select name="shop_no">
+<foreach name="shoplist" item="vo">
+<option value="{$vo['shop_no']}">{$vo['shop_name']}</option>
+</foreach>
+</select>
+</span>
+</dd>
+<else/>
+<dt>{:L('_ACCOUNT_TRANSFER_OUT_ACCT_')} : </dt>
+<dd class="space_dd">{$account['shop_info']['shop_name']}<input type="hidden" name="shop_no" value="{$map['shop_no']}"></dd>
+<dt>{:L('_ACCOUNT_TRANSFER_IN_ACCT_')} : </dt>
+<dd class="space_dd">{$admin['mct_name']}</dd>
+</eq>
+<dt>{:L('_ACCOUNT_TRANSFER_AMOUNT_')} : </dt>
+<dd><input title="{:L('_ACCOUNT_TRANSFER_AMOUNT_')}" placeholder="{:L('_ACCOUNT_TRANSFER_AMOUNT_')}" name="amount" maxlength="8" class="required txt" type="text"/><span class="left10">{:L('_ACCOUNT_TRANSFER_AMOUNT_TIP_',array('amount'=>number_format($account['act_amount']/100,2)))}</span></dd>
+</dl>
+<div class="top40"><button type="submit" class="btn blue_btn left20">{:L('_SUBMIT_')}</button><button type="button" onClick="window.history.back()" class="btn left80 gray_btn2">{:L('_CANCEL_')}</button></div>
+</div>
+<input type="hidden" name="type" value="{$map['type']}">
+</form>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

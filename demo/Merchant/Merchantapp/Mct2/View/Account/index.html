@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title><neq name="rows['shop_info']['shop_no']" value="">{$rows['shop_info']['shop_name']}</neq> {:L('_ACCOUNT_INFO_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd"><neq name="rows['shop_info']['shop_no']" value="">{$rows['shop_info']['shop_name']}</neq> {:L('_ACCOUNT_INFO_')}</div>
+<div class="zf_info clearfix">
+<ul>
+<li>
+<p>{:L('_ACCOUNT_BALANCE_')}</p>
+<p class="org">{$rows['currency_sign']}<span>{$rows['act_balance']/100}</span></p>
+<button class="btn blue_btn" onClick="document.location.href='__CONTROLLER__/recharge<neq name="map['shop_no']" value="">/cash/shop_no/{$map['shop_no']}</neq>'">{:L('_ACCOUNT_RECHARGE_')}</button>
+<gt name="map['shop_no']" value="">
+<button class="btn gray_btn left20" onClick="document.location.href='__CONTROLLER__/transfer/type/2/shop_no/{$map['shop_no']}'">{:L('_ACCOUNT_TRANSFER_OUT_')}</button>
+</gt>
+</li>
+<gt name="map['shop_no']" value="">
+<li>
+<div class="line"></div>
+<p>{:L('_ACCOUNT_CASH_AMOUNT_')}</p>
+<p class="org">{$rows['currency_sign']}<span>{$rows['act_cash_amount']/100}</span></p>
+<button class="btn left20 gray_btn2" onClick="document.location.href='__CONTROLLER__/cash/shop_no/{$map['shop_no']}'">{:L('_ACCOUNT_CASH_')}</button>
+</li>
+<else/>
+<li>
+<div class="line"></div>
+<p>{:L('_ACCOUNT_TRANSFER_MCT_')}</p>
+<p class="org">{$rows['currency_sign']}<span>{$rows['act_amount']/100}</span></p>
+<button class="btn gray_btn" onClick="document.location.href='__CONTROLLER__/transfer/amount/{$rows['act_amount']}'">{:L('_ACCOUNT_TRANSFER_')}</button>
+</li>
+</gt>
+</ul>
+</div>
+<eq name="map['shop_no']" value="">
+<div class="shouzhi_hd"><span class="fr size_12 right30 gray2"><a href="/account/info">{:L('_ACCOUNT_MORE_')}>></a></span>{:L('_ACCOUNT_MORE_INFO_')} : <span class="gray2 size_12">{:L('_ACCOUNT_MORE_INFO_TIP_')}</span></div>
+</eq>
+<div class="shouzhi_box clearfix">
+<ul>
+<li>
+<p>{:L('_ACCOUNT_TODAY_IN_')} : <span class="org">
+<volist name="report['in']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist>
+</span></p>
+<dl>
+<dt>{:L('_ACCOUNT_RECHARGE_')} : </dt>
+<dd><volist name="report['type1']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+<dt>{:L('_ACCOUNT_TRANSFER_IN_')} : </dt>
+<dd><volist name="report['type2']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+<dt>{:L('_ACCOUNT_APP_IN_')} : </dt>
+<dd><volist name="report['type3']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+<dt>{:L('_ACCOUNT_OTHER_IN_')} : </dt>
+<dd><volist name="report['type9']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+</dl>
+</li>
+<li>
+<div class="line"></div>
+<p>{:L('_ACCOUNT_TODAY_OUT_')} : <span class="org"><volist name="report['out']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></span></p>
+<dl>
+<dt>{:L('_ACCOUNT_TRANSFER_OUT_')} : </dt>
+<dd><volist name="report['type4']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+<dt>{:L('_ACCOUNT_BUY_APP_')} : </dt>
+<dd><volist name="report['type6']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+<dt>{:L('_ACCOUNT_AD_OUT_')} : </dt>
+<dd><volist name="report['type8']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+<dt>{:L('_ACCOUNT_OTHER_OUT_')} : </dt>
+<dd><volist name="report['type7']" id="vo">
+{$vo['currency_sign']}{$vo['count']/100|number_format=###,2}
+</volist></dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="shouzhi_line">{:L('_ACCOUNT_TODAY_IN_OUT_')} : <span class="org">
+{$report['out'][0]['currency_sign']}
+{$report['out'][0]['count']/100+($report['in'][0]['count']/100)}
+</span></div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

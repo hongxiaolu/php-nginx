@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_QRCODE_PAY_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd">{:L('_SYS_QRCODE_PAY_')}</div>
+<div class="table pd20">
+<neq name="list" value="">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th nowrap>{:L('_SHOP_NO_')}</th>
+<th nowrap>{:L('_SHOP_NAME_')}</th>
+<th nowrap>{:L('_SHOP_LOCAL_')}</th>
+<th nowrap>{:L('_SHOP_ADDRESS_')}</th>
+<th nowrap>{:L('_SHOP_TEL_')}</th>
+<th nowrap>{:L('_SHOP_OPEN_QROCDE_')}</th>
+<th nowrap>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+<tr>
+<td>{$vo['shop_no']}</td>
+<td>{$vo['shop_name']}</td>
+<td>{$vo['province']}-{$vo['city']}-{$vo['county']}</td>
+<td>{$vo['address']}</td>
+<td>{$vo['tel']}</td>
+<td>{$vo['payment']}</td>
+<td class="blue" nowrap>
+<foreach name="qrcode_list" key="key" item="vo2">
+<gt name="key" value="0"><br/></gt>
+<a target="_blank" href="__CONTROLLER__/qrcode_down/shop_no/{$vo['shop_no']}/sizetype/{$vo2}/preview/T">{:L('_PREVIEW_')}<gt name="key" value="0">{$key+1}</gt></a>
+<a target="_blank" class="left10" href="__CONTROLLER__/qrcode_down/shop_no/{$vo['shop_no']}/sizetype/{$vo2}">{:L('_SHOP_DOWN_QROCDE_')}<gt name="key" value="0">{$key+1}</gt></a>
+</foreach>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

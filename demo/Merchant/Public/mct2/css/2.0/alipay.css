@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+.alipay_main{ width:1200px; margin:0 auto;}
+.alipay_box2{ border:1px #dfdfdf solid; padding:30px 184px 80px 184px; width:830px; margin:30px auto 30px auto}
+.alipay_box2 h3{ font-size:24px; text-align:center; background:url(/Public/mct2/images/alipay_jhb.gif) 260px 0px no-repeat; height:52px; line-height:52px; font-weight:normal}
+.alipay_box2 li{ font-size:16px; background:url(/Public/mct2//images/alipay_ico.gif) no-repeat; padding-left:50px; height:40px;  line-height:40px; margin-top:30px; overflow:hidden; display:block}
+.alipay_box2 li.n2{ background-position:0px -66px}
+.alipay_box2 li.n3{ background-position:0px -134px}
+.alipay_box2 li.n4{ background-position:0px -206px}
+.alipay_box2 p{ color:#999}
+.alipay_box2 img{ display:block; margin:30px auto}
+.alipay_box2 .l, .alipay_box2 .r{ display:block; float:left; margin-top:30px; width:284px; margin-left:50px;}
+.alipay_box2 .l h4, .alipay_box2 .r h4{ text-align:center; color:#f35e0b; font-weight:normal; font-size:16px; margin-bottom:10px;}
+.alipay_box2 .c{ float:left; width:1px; height:260px; background:#d2d2d2; display:block; margin-left:50px; margin-top:70px;}
+.alipay_box2 .btn{display:block; margin:66px auto;  overflow:hidden}
+.alipay_box2 li.img{ overflow:hidden; height:320px; display:block; background:none; margin:0px; padding:0px; line-height:20px; font-size:14px}
+.alipay_box2 #qrcode{text-align:center;padding-top:10px;}

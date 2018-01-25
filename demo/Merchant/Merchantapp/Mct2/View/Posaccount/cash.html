@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>提现 - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" href="/Public/js/jquery.datetimepicker.css" />
+<script type="text/javascript" src="/Public/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">提现</div>
+<form name="cash" method="post" action="/posaccount/cashsave">
+<article class="boxRightCon T_tixian">
+<div class="clearfix">
+<div class="left_tixian">
+<dl>
+<dt>请核对右侧信息后，输入提现金额</dt>
+<dd><ul><li><input value="{$rows['act_cash_amount']/100}" name="amount" type="text"/>元</li>
+<li class="a">注：提现金额将会从T账户中扣除，并在三个工作日内转入银行账户。</li>
+<li><span class="org_btn"><a href="#" onClick="javascript:cash.submit()">提现</a></span><span class="jb_btn"><a href="#" onClick="javascript:window.history.back()">取消</a></span></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="right_tixian">
+<dl>
+<dt>账户信息</dt>
+<dd><ul>
+<li><span class="b">可提现金额：</span>￥{$rows['act_cash_amount']/100}</li>
+<li><span class="b">开户人姓名：</span>{$rows['account_name']}</li>
+<li><span class="b">提现收款帐号：</span>{$rows['account_no']|substr=###,0,6}******{$rows['account_no']|substr=###,-3}<br/>{$rows['bank_name']}</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="tip">注意：
+<p>1.如果该提现账户是对私账户，在打款时，需要缴纳税费，由我司代扣（对公账户不扣税）</p>
+<p>2.缴税规则是：每个自然月每个“开户人姓名“累计提款超过800元部分需缴纳20%的税。低于800元部分不扣税。</p>
+<p>例如：某开户人名下一共有三个银行对私账户，则该开户人每个月收益超过800元部分需要纳税。</p>
+</div>
+</article>
+</form>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

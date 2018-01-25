@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>进入应用 - {$admin['mct_name']}</title>
+<script type="application/javascript">
+function goapp(){
+	setTimeout(function(){
+		goappform.submit();	
+	},1000)	
+}
+</script>
+</head>
+<body onLoad="goapp()">
+<div align="center">
+<form action="{$rows['tml_url']}" name="goappform" method="post">
+<input type="hidden" name="app_token" value="{$app_token}">
+<input type="hidden" name="data" value="{$data}">
+<input style="border:0px; background-color:#FFFFFF" type="submit" name="" value="正在进入{$rows['app_name']}，如果页面没有跳转，请点我">
+</form>
+</div>
+</body>
+</html>

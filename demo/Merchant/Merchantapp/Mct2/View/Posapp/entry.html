@@ -1,0 +1,9 @@
+<html>
+<head>
+<title>我的应用-{$admin['shop_name']}</title>
+</head>
+<frameset rows="130,*">
+<frame longdesc="header" frameborder="0" border="0" framespacing="0" noresize="yes" scrolling="no" src="/posapp/top">
+<frame longdesc="loading" frameborder="0"  noresize="no" scrolling="auto" src="/posapp/main?{:http_build_query($map)}" >
+</frameset><noframes></noframes>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_ADMIN_ADD_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript" src="/Public/mct2/js/admin.js"></script>
+<script type="text/javascript">
+var json='({$data['auth']|json_encode})';
+</script>
+</head>
+<body>
+<include file="./header" />
+<form action="__CONTROLLER__/admin_addsave" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_SYS_ADMIN_ADD_')}</div>
+<div class="hd_line">{:L('_BASIC_SET_')} : </div>
+<div class="base_from">
+<dl>
+<dt><i class="org">*</i>{:L('_SYS_USER_NAME_')} : </dt>
+<dd><input class="txt required" title="{:L('_SYS_USER_NAME_')}" maxlength="20" name="user_name" type="text" placeholder="{:L('_SYS_USER_NAME_')}" /><span>{:L('_SYS_USER_NAME_TIPS_')}</span></dd>
+<dt><i class="org">*</i>{:L('_SYS_PASSWORD_')} : </dt>
+<dd><input title="{:L('_SYS_PASSWORD_')}" name="password" class="required txt" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_SYS_PASSWORD_')}" /><span>{:L('_SYS_NEW_PASS_TIP_')}</span></dd>
+<dt>{:L('_MOBILE_')} : </dt>
+<dd><input title="{:L('_MOBILE_')}" class="txt" name="mobile" type="text" placeholder="{:L('_MOBILE_')}" /><span>{:L('_SYS_MOBILE_TIPS_')}</span></dd>
+<dt>{:L('_EMAIL_')} : </dt>
+<dd><input maxlength="100" value="{$mydata['email']}" title="{:L('_EMAIL_')}" class="txt" name="email" type="text" placeholder="{:L('_EMAIL_')}" /><span>{:L('_SYS_MOBILE_TIPS_')}</span></dd>
+<dt><i class="org">*</i>{:L('_SYS_TRUE_NAME_')} : </dt>
+<dd><input title="{:L('_SYS_TRUE_NAME_')}" class="txt required" maxlength="20" name="true_name" type="text" placeholder="{:L('_SYS_TRUE_NAME_')}"/></dd>
+</dl>
+</div>
+<div class="hd_line">{:L('_SYS_AUTH_SET_')} : </div>
+<div class="perm_from">
+<dl>
+<dt>{:L('_SYS_ADMIN_ROLE_')} : </dt>
+<dd>
+<div class="perm_line">{:L('_SYS_DEFAULT_ROLE_')}</div>
+<div class="perm_list checkbox clearfix">
+<ul>
+
+<foreach name="data['role']" item="vo">
+<eq name="vo['role_mct_no']" value="0">
+<li class="checkbox_input">
+<label><input name="roles[]" type="checkbox" value="{$vo['role_id']}"><span id="{$vo['role_auths']}">{$vo['role_name']}</span></label>
+</li>
+</eq>
+</foreach>
+
+</ul>
+</div>
+<div class="perm_line"><a href="/Role/add" class="blue">{:L('_SYS_ROLE_ADD_')}+</a></div>
+<div class="perm_list checkbox clearfix bottom10">
+<ul>
+
+<foreach name="data['role']" item="vo">
+<gt name="vo['role_mct_no']" value="0">
+<li class="checkbox_input">
+<label><input name="roles[]" type="checkbox" value="{$vo['role_id']}"><span id="{$vo['role_auths']}">{$vo['role_name']}</span></label>
+</li>
+</gt>
+</foreach>
+
+</ul>
+</div>
+</dd>
+<dt>{:L('_SYS_MANGER_SHOP_')} : </dt>
+<dd>
+<div class="perm_list checkbox clearfix" id="checked_all_list">
+<ul>
+<li class="checkbox_input">
+<label id="checked_all"><input type="checkbox" name="shop_no[]" value="0" checked/> {:L('_SYS_ALL_SHOP_')}</label></li>
+<foreach name="data['shop']" item="vo">
+<li class="checkbox_input"><label><input type="checkbox" name="shop_no[]" value="{$vo['shop_no']}" checked/> {$vo['shop_name']}</label></li>
+</foreach>
+</ul>
+</div>
+</dd>
+<dt>{:L('_SYS_ADMIN_MCT_SHOP_')} : </dt>
+<dd>
+<div class="perm_list checkbox clearfix" id="checked_all_list">
+<ul>
+<li class="checkbox_input"><label id="checked_all"><input id="checked_input" type="radio" name="scr_shop_no" value="0" checked/> {:L('_SYS_NO_SHOP_')}</label></li>
+<foreach name="data['shop']" item="vo">
+<li class="checkbox_input"><label><input type="radio" name="scr_shop_no" value="{$vo['shop_no']}" <eq name="key" value="0">checked</eq>/> {$vo['shop_name']}</label></li>
+</foreach>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="center_block bottom70">
+<button class="btn blue_btn" type="submit">{:L('_SUBMIT_')}</button><button type="button" class="btn gray_btn2 left50" onClick="window.history.back()">{:L('_CANCEL_')}</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+
+<include file="./footer" />
+</body>
+</html>

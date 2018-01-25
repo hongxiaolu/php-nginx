@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_RECHARGE_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script language="javascript" src="/Public/js/jquery.qrcode.min.js"></script>
+<script language="javascript">
+$(function(){
+	jQuery('#qrcode').qrcode({width: 300,height: 300,text: "{$rows['trade_qrcode']}",src:"/Public/mct2/images/qrcode/{$rows['pmt_tag']}.png"});
+	checkstatus();
+})
+function checkstatus(){
+	url="/Account/recharge_status/ord_no/{$rows['ord_no']}/dataType/json";
+	$.ajax({
+		url: url,
+		cache: false,
+		dataType: "json", 
+		timeout: 2000,
+		success: function(result){
+			if(result['data']['status']==1){
+				document.location.href='/Account/recharge_ok/amount/{$map['amount']}';
+			}else{
+				setTimeout('checkstatus()',1000);	
+			}
+		},error: function(){
+			setTimeout('checkstatus()',2000);
+		}
+	})
+}
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{$rows['pmt_name']}</div>
+<div class="alipay_box">
+<span id="qrcode"></span>
+<dl>
+<dt>{:L('_ACCOUNT_ORD_NO_')} : </dt><dd>{$rows['ord_no']}</dd>
+<dt>{:L('_ACCOUNT_RECHARGE_ACCT_')} : </dt>
+<dd class="size_16"><neq name="map['shop_no']" value="">
+{$account['shop_info']['shop_name']}
+<else/>
+{$admin['mct_name']}
+</neq></dd>
+<dt>{:L('_ACCOUNT_RECHARGE_AMOUNT_')} : </dt>
+<dd class="org size_16">{$map['amount']/100|number_format=###,2}</dd>
+<dt></dt>
+<dd>
+<p class="top70">{:L('_ACCOUNT_QRCODE_PAY_')}</p>
+<form action="__CONTROLLER__/recharge_cancel" method="post" onSubmit="return ttgValidata(this)">
+<button class="btn blue_btn" type="submit">{:L('_CANCEL_')}</a></button>
+<input type="hidden" name="ord_no" value="{$rows['ord_no']}">
+</form>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

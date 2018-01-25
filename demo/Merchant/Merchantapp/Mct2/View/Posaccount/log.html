@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title><switch name="map.type">
+<case value="1">充值记录</case>
+<case value="2">转入记录</case>
+<case value="3">分润记录</case>
+<case value="4">转账记录</case>
+<case value="5">提现记录</case>
+<case value="6">消费记录</case>
+<default />交易记录
+</switch> - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" href="/Public/js/jquery.datetimepicker.css" />
+<script type="text/javascript" src="/Public/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">
+<switch name="map.type">
+<case value="1">充值记录</case>
+<case value="2">转入记录</case>
+<case value="3">分润记录</case>
+<case value="4">转账记录</case>
+<case value="5">提现记录</case>
+<case value="6">支出记录</case>
+<default />交易记录
+</switch>
+</div>
+<article class="boxRightCon">
+<form method="post">
+<div class="CommonInput RightCon_first">
+<ul>
+<li><span class="name">交易时间</span><input class="datetimepicker" name="sdate" value="{$map.sdate}" type="text"/> — <input type="text" class="datetimepicker" name="edate" value="{$map.edate}"/></li>
+<li><span class="name">交易状态</span>
+<div class="select">
+<select name="status">
+<option value="">全部</option>
+<option value="1" <eq name="map['status']" value="1">selected</eq>>交易成功</option>
+<option value="2" <eq name="map['status']" value="2">selected</eq>>等待处理</option>
+<option value="4" <eq name="map['status']" value="4">selected</eq>>交易失败</option>
+</select>
+</div>
+</li>
+<li class="org_btn"><input name="submit" type="submit" value="搜索"/></li>
+</ul>
+</div>
+<input type="hidden" name="type" value="{$map['type']}">
+</form>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="commonTable">
+<tr>
+<th>流水号</th>
+<th>交易时间</th>
+<th>交易类型</th>
+<th>交易金额（元）</th>
+<th>交易状态</th>
+<th>账户余额</th>
+<th>操作人</th>
+<th>备注</th>
+</tr>
+<volist name="list" id="vo" >
+<tr>
+<td>{$vo['acl_id']}</td>
+<td>{$vo['acl_time']}</td>
+<td><switch name="vo.acl_type">
+<case value="1">充值</case>
+<case value="2">转入</case>
+<case value="3">收入</case>
+<case value="4">转出</case>
+<case value="5">提现</case>
+<case value="6">支出</case>
+<default />未知
+</switch></td>
+<td>￥{$vo['acl_amount']/100}</td>
+<td><switch name="vo.acl_status">
+<case value="1">交易成功</case>
+<case value="2">等待处理</case>
+<case value="4">交易失败</case>
+<default />未知
+</switch></td>
+<td>￥{$vo['acl_balance']/100}</td>
+<td>{$vo['scr_true_name']}（{$vo['scr_id']}）</td>
+<td>{$vo['acl_remark']}</td>
+</tr>
+</volist>
+</table>
+{$page}
+</article>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

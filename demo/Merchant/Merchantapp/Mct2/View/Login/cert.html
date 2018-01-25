@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_LOGIN_MOBILE_CODE_')} - {:C('mct_site_name')}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<form action="__CONTROLLER__/checkcert" method="post">
+<div class="con_bg">
+<div class="main">
+<div class="register_box">
+<div class="hd"><a href="/login">{:L('_LOGIN_ALREADY_ACCOUNT_')}</a>{:L('_LOGIN_FORGET_PASS_')}</div>	
+<div class="from_box">
+<dl>
+<neq name="cert_mobile['sms_id']" value="">
+<dt>{:L('_LOGIN_MOBILE_CODE_PLEASE_')}</dt>
+<dd><input title="{:L('_LOGIN_MOBILE_CODE_')}" type="text" maxlength="6" name="sms_code" class="txt required" placeholder="{:L('_LOGIN_MOBILE_CODE_')}" /></dd>
+<dt></dt>
+<dd>
+<div class="error">{:L('_LOGIN_MOBILE_CODE_TIP_',array('mobile'=>$cert_mobile['mobile']))}</div>
+</dd>
+<else/>
+<dt>{:L('_LOGIN_EMAIL_CODE_PLEASE_')}</dt>
+<dd><input title="{:L('_LOGIN_EMAIL_CODE_')}" type="text" maxlength="6" name="eml_code" class="txt required" placeholder="{:L('_LOGIN_EMAIL_CODE_')}" /></dd>
+<dt></dt>
+<dd>
+<div class="error">{:L('_LOGIN_EMAIL_CODE_TIP_',array('email'=>$cert_mobile['email']))}</div>
+</dd>
+</neq>
+</dl>
+</div>
+<div class="center_block"><div><button class="btn blue_btn">{:L('_NEXT_')}</button></div></div>
+</div>
+</div>
+</div>
+</form>
+<include file="./footer" />
+</body>
+</html>

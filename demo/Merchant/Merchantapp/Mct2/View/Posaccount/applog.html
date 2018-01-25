@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>应用购买记录 - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" href="/Public/js/jquery.datetimepicker.css" />
+<script type="text/javascript" src="/Public/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">应用购买记录</div>
+<article class="boxRightCon">
+<form method="post">
+<div class="CommonInput RightCon_first">
+<ul>
+<li><span class="name">交易时间</span><input class="datetimepicker" name="sdate" value="{$map.sdate}" type="text"/> — <input type="text" class="datetimepicker" name="edate" value="{$map.edate}"/></li>
+<li><span class="name">应用名称</span><input type="text" name="app_name" value="{$map['app_name']}" placeholder="应用名称"></li>
+<li><span class="name">门店名称</span><input type="text" name="shop_name" value="{$map['shop_name']}" placeholder="门店名称"></li>
+<li class="org_btn"><input name="submit" type="submit" value="搜索"/></li>
+</ul>
+</div>
+</form>
+<div class="f2 mrb15">共计：<span class="org">{$app_count}</span>个应用，花费<span class="org">{$app_amount/100}</span>元</div>  
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="commonTable">
+<tr>
+<th>购买时间</th>
+<th>应用名称</th>
+<th>购买期限</th>
+<th>购买份数</th>
+<th>购买金额</th>
+<th>购买门店</th>
+<th>操作人</th>
+<th>自动续费</th>
+<th>备注</th>
+<th>操作</th>
+</tr>
+<volist name="list" id="vo" >
+<tr>
+<td>{$vo['buy_time']}</td>
+<td><a href="/appstore/appview/app_id/{$vo['app_id']}" target="_blank">{$vo['app_name']}</a></td>
+<td>{$vo['expired_date']}</td>
+<td>{$vo['buy_num']}</td>
+<td>￥{$vo['amount']/100}</td>
+<td>{$vo['shop_name']}</td>
+<td>{$vo['scr_true_name']}（{$vo['scr_id']}）</td>
+<td><eq name="vo['auto_rebuy']" value="1">是<else/>否</eq></td>
+<td>{$vo['remark']}</td>
+<td><a href="/Appstore/buy/app_id/{$vo['app_id']}/buy_num/1/shop_no/{$vo['shop_no']}" class="org">续费</a></td>
+</tr>
+</volist>
+</table>
+{$page}
+</article>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

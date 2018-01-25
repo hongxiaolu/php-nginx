@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$rows['news_title']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<div class="help_box">
+<div class="article_con">
+<h2>{$rows['news_title']}</h2>
+<small>{$rows['news_time']}</small>
+{$rows['news_content']}
+<div class="article_next top40">
+<neq name="rows['previous_news']" value="">
+<p><span>{:L('_NEWS_PREVIOUS_')}</span><a href="/news/detail/news_id/{$rows['previous_news']['news_id']}" class="org">{$rows['previous_news']['news_title']}</a></p>
+</neq>
+<neq name="rows['next_news']" value="">
+<p><span>{:L('_NEWS_NEXT_')}</span><a href="/news/detail/news_id/{$rows['next_news']['news_id']}" class="org">{$rows['next_news']['news_title']}</a></p>
+</neq>
+</div>
+<div class="article_btn org top40 center_block">
+<a href="/news/index/news_type/{$rows['news_type']}">{:L('_NEWS_GO_LIST_',array('news_type_name'=>$map['news_type_name']))}</a>
+<a href="/" class="left20">{:L('_NEWS_GO_HOME_')}</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

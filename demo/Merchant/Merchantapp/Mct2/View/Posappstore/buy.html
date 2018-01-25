@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$rows['app_name']} - {:L('_APPSTORE_')}</title>
+<include file="./css" />
+<script type="text/javascript">
+$(function() {
+	$('#buy_num').keyup(function(event) {
+		$(this).val($(this).val().replace(/[^1234567890]+/g,''))
+		var buy_price=parseFloat($("#buy_price").val());
+		var buy_num=parseInt($("#buy_num").val());
+		var shop_count=$("input[name='shop_no[]']:checked").length;
+		if(shop_count==0){
+			shop_count=1;
+		}
+		if(isNaN(buy_num)==true || buy_num<1){
+			buy_num=1;
+		}
+		$("#total_price").html((buy_price*buy_num*shop_count).toFixed(2)+' 元')
+	});
+	$("#shop_list label").click(function(){$('#buy_num').keyup();})
+	$("#shop_list ins").click(function(){$('#buy_num').keyup();})
+	$('#buy_num').keyup();
+})
+function checkbuy(formobj){
+	var buy_num=$('#buy_num').length;
+	if(buy_num>0){
+		var msgtitle='{:L('_APP_BUY_MSG_')}';
+		msgtitle+='<br/>'+$("#tips_price").text()+$("#tips_price").next().text();
+		msgtitle+='<br/>'+$("#tips_total").text()+$("#tips_total").next().text();
+	}else{
+		var msgtitle="{:L('_APP_TRYOUT_MSG_')}";	
+	}
+	layer.msg(msgtitle, {
+	  time: 0 //不自动关闭
+	  ,btn: [btn_ok, btn_cancel]
+	  ,yes: function(index){
+		  return ttgValidata(formobj);
+	  }
+	});
+	return false;
+}
+</script>
+</head>
+<body>
+<include file="./header" />
+
+<div class="con_bg clearfix">
+<div class="main">
+<menu class="mall_menu">
+<h2>- {$rows['app_name']} -</h2>
+<div class="mall_menu_box">
+<img src="{$rows['app_logo']}">
+</div>
+</menu>
+<form name="formbuy" method="post" action="__CONTROLLER__/buysave" >
+<div class="content">
+<div class="hd">{:L('_APPSTORE_')} > <eq name="map['tryout']" value="0">{:L('_APP_BUY_APP_NAME_',array('appname'=>$rows['app_name']))}<else/>{:L('_APP_TRYOUT_APP_NAME_',array('appname'=>$rows['app_name']))}</eq></div>
+<div class="from_box left_m">
+<dl>
+<gt name="rows['app_pay_type']" value="0">
+<eq name="map['tryout']" value="1">
+<dt>{:L('_APP_TRYOUT_DATE_')} : </dt><dd class="space_dd top6">{$rows['app_tryout']} {:L('_DAY_')}</dd>
+<else/>
+<dt>{:L('_APP_BUY_NUM_')} : </dt><dd><input title="{:L('_APP_BUY_NUM_')}" value="1" maxlength="6" value="{$map['buy_num']}" id="buy_num" name="buy_num" class="txt required"  style="width:80px" type="text" placeholder="整数"/>　<switch name="rows['app_pay_type']" >
+<case value="0">{:L('_FREE_')}</case>
+<case value="1">{:L('_DAY_')}</case>
+<case value="2">{:L('_WEEK_')}</case>
+<case value="3">{:L('_MONTH_')}</case>
+<case value="4">{:L('_QUARTER_')}</case>
+<case value="5">{:L('_YEAR_')}</case>
+<case value="6">{:L('_ONCE_')}</case>
+<default />unknown
+</switch></dd>
+</eq>
+<else/>
+<input value="1" id="buy_num" name="buy_num" type="hidden"/>
+</gt>
+<eq name="map['tryout']" value="0">
+<dt id="tips_price">{:L('_APP_PRICE_')}  : </dt>
+<dd class="space_dd"><eq name="rows['app_pay_type']" value="0">
+{:L('_FREE_')}
+<else/>
+{$rows['currency_sign']} {$rows['app_price']/100|number_format=###,2} /
+<switch name="rows['app_pay_type']" >
+<case value="0">{:L('_FREE_')}</case>
+<case value="1">{:L('_DAY_')}</case>
+<case value="2">{:L('_WEEK_')}</case>
+<case value="3">{:L('_MONTH_')}</case>
+<case value="4">{:L('_QUARTER_')}</case>
+<case value="5">{:L('_YEAR_')}</case>
+<case value="6">{:L('_ONCE_')}</case>
+<default />unknown
+</switch></eq>
+<input type="hidden" name="buy_price" id="buy_price" value="{$rows['app_price']/100}">
+</dd>
+</eq>
+<dt>{:L('_APP_TO_SHOP_')} : </dt>
+<dd>
+<div class="checkbox jf_radio buy_add">
+<ul id="shop_list">
+<foreach name="rows2" item="vo">
+<if condition="($map['tryout'] eq 1) and ($vo['expired_date'] gt -1)">
+<li>
+<div class="checkbox_input"><label><input disabled name="shop_no[]" type="checkbox" value="{$vo['shop_no']}"> {$vo['shop_name']}<span class="red">({:L('_APP_NO_TRYOUT_')})</span></label></div>
+</li>
+<else/>
+<li>
+<div class="checkbox_input"><label><input type="checkbox" name="shop_no[]" value="{$vo['shop_no']}" <eq name="vo['shop_no']" value="$map['shop_no']">checked</eq>/> {$vo['shop_name']}<gt name="vo['expired_date']" value="-1"><span class="red">({:L('_APP_EXPIRED_DATE_',array('expired_date'=>$vo['expired_date']))})</span></gt></label>
+</li>
+</if>
+</foreach>
+</ul>
+</div>
+</dd>
+<eq name="map['tryout']" value="0">
+<lt name="rows['app_pay_type']" value="6">
+<dt>{:L('_APP_AUTO_RENEW_')} : </dt>
+<dd>
+<div class="checkbox jf_radio buy_add">
+<ul>
+<li class="top10">
+<div class="checkbox_input"><label><input type="radio" name="auto_rebuy" value="1" checked>{:L('_YES_')}</label></div>
+</li>
+<li class="top10">
+<div class="checkbox_input"><label><input type="radio" name="auto_rebuy" value="2">{:L('_NO_')}</label></div>
+</li>
+</ul>
+</div>
+</dd>
+</lt>
+<dt id="tips_total">{:L('_APP_BUY_TOTAL_')} : </dt>
+<dd class="space_dd top6" id="total_price">{$rows['currency_sign']} {$rows['app_price']/100}</dd>
+</eq>
+</dl>
+<div class="top40"><button type="submit" class="btn blue_btn  left20">{:L('_OK_')}</button><button type="button" onClick="window.history.back()" class="btn left80 gray_btn2">{:L('_CANCEL_')}</button></div>
+</div>
+</div>
+<input type="hidden" name="tryout" id="tryout" value="0">
+<input type="hidden" name="app_id" value="{$rows['app_id']}">
+</form>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

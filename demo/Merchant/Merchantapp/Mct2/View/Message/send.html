@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_MSG_SEND_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script language="javascript">
+function msg_types(id){
+	if(id==1){
+		$(".msg_type_1").show();
+		$(".msg_type_2").hide();
+		$("#content").addClass("required");
+		$("#file").removeClass("required");
+	}else{
+		$(".msg_type_1").hide();
+		$(".msg_type_2").show();
+		$("#file").addClass("required");
+		$("#content").removeClass("required");		
+	}
+}
+</script>
+</head>
+<body>
+<include file="./header" />
+<form enctype="multipart/form-data" action="__CONTROLLER__/send_to" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+
+<div class="hd">{:L('_MSG_SEND_')}</div>
+<div class="base_from">
+<dl>
+<dt>{:L('_MSG_TO_')} : </dt>
+<dd>{$map['to_name']}</dd>
+<dl>
+<dt><i class="org">*</i>{:L('_MSG_TYPE_')} : </dt>
+<dd>
+<label><input onClick="msg_types(1)" type="radio" name="msg_type" value="1" checked> {:L('_MSG_TYPE_1_')}</label> 
+<label><input onClick="msg_types(2)" type="radio" name="msg_type" value="2"> {:L('_MSG_TYPE_2_')}</label>
+</dd>
+<dt class="msg_type_1"><i class="org">*</i>{:L('_MSG_CONTENT_')} : </dt>
+<dd class="msg_type_1"><textarea id="content" title="{:L('_MSG_CONTENT_')}" class="required"  name="content" style="width:80%;height:100px;"></textarea></dd>
+<dt class="msg_type_2" style="display:none"><i class="org">*</i>{:L('_MSG_UPLOAD_')} : </dt>
+<dd class="msg_type_2" style="display:none"><input id="file" title="{:L('_MSG_UPLOAD_')}"  type="file" name="file" id="send_file"></dd>
+</dl>
+</div>
+<div class="center_block bottom70">
+<button class="btn blue_btn" type="submit">{:L('_SUBMIT_')}</button><button type="button" class="btn gray_btn2 left50" onClick="document.location.href='/message'">{:L('_CANCEL_')}</button>
+</div>
+</div>
+</div>
+</div>
+<input type="hidden" name="to_type" value="{$map['to_type']}">
+<input type="hidden" name="msg_to" value="{$map['msg_to']}">
+<input type="hidden" id="GO_SUBMIT" value="1">
+</form>
+<include file="./footer" />
+</body>
+</html>

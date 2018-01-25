@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_RECHARGE_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script language="javascript" src="/Public/js/jquery.qrcode.min.js"></script>
+<script language="javascript">
+$(function(){
+	jQuery('#qrcode').qrcode({width: 300,height: 300,text: "{$rows['trade_qrcode']}",src:"/Public/mct2/images/qrcode/{$rows['pmt_tag']}.png"});
+	checkstatus();
+})
+function checkstatus(){
+	url="/Account/recharge_status/ord_no/{$rows['ord_no']}/dataType/json";
+	$.ajax({
+		url: url,
+		cache: false,
+		dataType: "json", 
+		timeout: 2000,
+		success: function(result){
+			if(result['data']['status']==1){
+				parent.formbuy.submit();
+				parent.layer.msg('充值成功！')
+				
+			}else{
+				setTimeout('checkstatus()',1000);	
+			}
+		},error: function(){
+			setTimeout('checkstatus()',2000);
+		}
+	})
+}
+</script>
+</head>
+<body>
+<div class="alert_box w1">
+<div class="alert_mod">
+<div class="alipay_alert">
+<span id="qrcode"></span>
+<ul>
+<li><label>{:L('_ACCOUNT_RECHARGE_PAYMENT_')} : </label>{$rows['pmt_name']}</li>
+<li><label>{:L('_ACCOUNT_PAY_AMOUNT_')} : </label><span class="org">{$map['amount']/100|number_format=###,2}</span></li>
+</ul>
+<p class="top70 size_12">{:L('_ACCOUNT_QRCODE_PAY_')}</p>
+</div>
+</div>
+<div style="width:100%;text-align:center;">
+<form action="__CONTROLLER__/recharge_cancel" method="post" onSubmit="return ttgValidata(this)">
+<button class="btn blue_btn" type="submit">{:L('_CANCEL_')}</button>
+<input type="hidden" name="ord_no" value="{$rows['ord_no']}">
+<input type="hidden" id="PARENT_RELOAD">
+</form>
+</div>
+</div>
+</body>
+</html>

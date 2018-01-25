@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>交易结果 - {$admin['shop_name']} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">交易结果</div>
+<div class="from_box left_m">
+<dl>
+<dt>交易金额 : </dt><dd class="space_dd">{$rows['currency_sign']}{$rows['trade_amount']/100|number_format=###,2}</dd>
+<dt>付款单号 : </dt><dd class="space_dd">{$rows['ord_no']}</dd>
+<dt>订单名称 : </dt><dd class="space_dd">{$rows['ord_name']}</dd>
+<dt>交易结果 : </dt><dd class="space_dd red">
+<switch name="rows['status']" >
+<case value="1"><eq name="rows['ord_type']" value="2">退款<else/>付款</eq>成功</case>
+<case value="2">未付款</case>
+<case value="4">订单已取消</case>
+<case value="9">等待用户输入密码</case>
+<default />交易异常
+</switch></dd>
+</dl>
+<div class="center_block bottom70">
+<button class="btn blue_btn" onClick="document.location.href='/Pos'" type="submit">返回收银台</button>
+<eq name="rows['status']" value="1"><button class="btn gray_btn2 left50" onClick="document.location.href='/Posorder/webprint/ord_no/{$rows['ord_no']}'" type="submit">打印小票</button></eq>
+<button type="button" class="btn gray_btn2 left50" onClick="document.location.href='/Posorder/view/ord_no/{$rows['ord_no']}'">查看交易明细</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+<script language="javascript">
+$(function(){
+	var data='ord_no={$rows['ord_no']}';
+	$.ajax({ 
+		type: 'post', 
+		url: '/posapp/app_notice', 
+		data:data, 
+		cache: false,
+		async: true,
+		dataType: 'json', 
+		success: function (data) {
+			if(data['app_id']!= undefined  && data['return_str']!= undefined ){
+				document.location.href='/Posapp/entry/?app_id='+data['app_id']+'&return_str='+encodeURI(data['return_str']);
+			}else if(data['app_id']!= undefined ){
+				document.location.href='/Posapp/entry/?app_id='+data['app_id'];
+			}
+		}, 
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			alert(errorThrown);
+		} 
+	});		
+})
+</script>
+</body>
+</html>

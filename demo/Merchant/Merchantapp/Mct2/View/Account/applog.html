@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title><neq name="rows['shop_info']['shop_no']" value="">{$rows['shop_info']['shop_name']}</neq>{:L('_ACCOUNT_APP_LOG_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript">
+$(function(){
+	//隔行变色
+	ttgWeb.oddColor();
+	//日期
+	jQuery.datetimepicker.setLocale('{:substr(strtolower(LANG_SET),0,2)}');
+	$('.datetimepicker').datetimepicker({
+		timepicker:false,
+		format:'Y-m-d'
+	});
+});
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd"><neq name="rows['shop_info']['shop_no']" value="">{$rows['shop_info']['shop_name']}</neq> {:L('_ACCOUNT_APP_LOG_')}</div>
+<form action="__CONTROLLER__/applog" method="post">
+<div class="search_box">
+<dl>
+<dt>{:L('_ACCOUNT_TRADE_TIME_')}&nbsp;:&nbsp;</dt>
+<dd><input class="datetimepicker txt date" name="sdate" value="{$map.sdate}" type="text"/> — <input type="text" class="datetimepicker txt date" name="edate" value="{$map.edate}"/></dd>
+<dt>{:L('_ACCOUNT_APP_NAME_')}&nbsp;:&nbsp;</dt><dd><input class="txt" style="width:120px" type="text" name="app_name" value="{$map['app_name']}" placeholder="{:L('_ACCOUNT_APP_NAME_')}"></dd>
+<dt>{:L('_ACCOUNT_SHOP_NAME_')}&nbsp;:&nbsp;</dt><dd><input class="txt" style="width:120px" type="text" name="shop_name" value="{$map['shop_name']}" placeholder="{:L('_ACCOUNT_SHOP_NAME_')}"></dd>
+</dl>
+<button type="submit" class="btn search_btn">{:L('_SEARCH_')}</button>
+</div>
+<neq name="map['shop_no']" value=""><input type="hidden" name="shop_no" value="{$map['shop_no']}"></neq>
+</form>
+<neq name="list" value="">
+<div class="table pd20">
+<p>{:L('_ACCOUNT_APP_LOG_TIP_',array('app_count'=>$rows['app_count'],'app_amount'=>number_format($rows['app_amount']/100,2)))}</span></p>
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_ACCOUNT_BUY_TIME_')}</th>
+<th>{:L('_ACCOUNT_APP_NAME_')}</th>
+<th>{:L('_EXPIRED_TIME_')}</th>
+<th>{:L('_ACCOUNT_BUY_DATE_')}</th>
+<th>{:L('_ACCOUNT_BUY_NUM_')}</th>
+<th>{:L('_ACCOUNT_BUY_AMOUNT_')}</th>
+<th>{:L('_ACCOUNT_BUY_SHOP_')}</th>
+<th>{:L('_ACCOUNT_MAN_')}</th>
+<th>{:L('_ACCOUNT_AUTO_RENEW_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo" >
+<tr>
+<td>{$vo['buy_time']|strtotime|date='Y-m-d',###}</td>
+<td><a href="/appstore/appview/app_id/{$vo['app_id']}" target="_blank">{$vo['app_name']}</a></td>
+<td>{$vo['expired_date']|strtotime|date='Y-m-d',###}</td>
+<td>{$vo['buy_days']}</td>
+<td>{$vo['buy_num']}</td>
+<td>{$vo['currency_sign']}{$vo['amount']/100|number_format=###,2}</td>
+<td>{$vo['shop_name']}</td>
+<td>{$vo['scr_true_name']}（{$vo['scr_id']}）</td>
+<td><eq name="vo['auto_rebuy']" value="1">{:L('_YES_')}<else/>{:L('_NO_')}</eq></td>
+<td><a href="/Appstore/buy/app_id/{$vo['app_id']}/buy_num/1/shop_no/{$vo['shop_no']}" class="blue">{:L('_ACCOUNT_RENEW_')}</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

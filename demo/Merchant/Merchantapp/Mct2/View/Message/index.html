@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_MSG_LIST_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_MSG_LIST_')}</div>
+<div class="table pd20">
+<neq name="list" value="">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th nowrap>{:L('_MSG_SEND_TIME_')}</th>
+<th nowrap>{:L('_MSG_FROM_')}</th>
+<th nowrap>{:L('_MSG_TO_')}</th>
+<th nowrap>{:L('_MSG_TYPE_')}</th>
+<th nowrap>{:L('_STATUS_')}</th>
+<th nowrap>{:L('_MSG_READ_TIME_')}</th>
+<th nowrap>{:L('_MSG_CONTENT_')}</th>
+<th nowrap>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+<tr>
+<td>{$vo['send_time']|wordTime}</td>
+<td>
+<span class="gray2">[<switch name="vo['from_type']">
+<case value="0">{:L('_MSG_FROM_TYPE_0_')}</case>
+<case value="1">{:L('_MSG_FROM_TYPE_1_')}</case>
+<case value="2">{:L('_MSG_FROM_TYPE_2_')}</case>
+<case value="3">{:L('_MSG_FROM_TYPE_3_')}</case>
+<case value="4">{:L('_MSG_FROM_TYPE_4_')}</case>
+<default />unknown
+</switch>]</span>
+
+<eq name="vo['from_type']" value="3">
+<a class="blue" href="/message/send/to_type/5/msg_to/{$vo['msg_from']}/to_name/{:urlencode($vo['from_name'])}">
+{$vo['from_name']|default=$vo['msg_from']}
+</a>
+<else/>
+{$vo['from_name']|default=$vo['msg_from']}
+</eq>
+</td>
+<td>
+<span class="gray2">[<switch name="vo['to_type']">
+<case value="1">{:L('_MSG_OT_TYPE_1_')}</case>
+<case value="2">{:L('_MSG_OT_TYPE_2_')}</case>
+<case value="3">{:L('_MSG_OT_TYPE_3_')}</case>
+<case value="4">{:L('_MSG_OT_TYPE_4_')}</case>
+<case value="5">{:L('_MSG_OT_TYPE_5_')}</case>
+<case value="6">{:L('_MSG_OT_TYPE_6_')}</case>
+<default />unknown
+</switch>]</span>{$vo['to_name']|default=$vo['msg_to']}</td>
+<td><switch name="vo['msg_type']">
+<case value="1">{:L('_MSG_TYPE_1_')}</case>
+<case value="2">{:L('_MSG_TYPE_2_')}</case>
+<case value="3">{:L('_MSG_TYPE_3_')}</case>
+<case value="4">{:L('_MSG_TYPE_4_')}</case>
+<default />unknown
+</switch></td>
+<td>
+<switch name="vo['read_status']">
+<case value="0">{:L('_MSG_READ_STATUS_0_')}</case>
+<case value="1">{:L('_MSG_READ_STATUS_1_')}</case>
+<case value="2">{:L('_MSG_READ_STATUS_2_')}</case>
+<case value="4">{:L('_MSG_READ_STATUS_4_')}</case>
+<default />unknown
+</switch>
+</td>
+<td>{$vo['read_time']|wordTime}</td>
+<td>
+<neq name="vo['title']" value=""><strong>{$vo['title']}</strong><br/></neq>
+<switch name="vo['msg_type']">
+<case value="1">{$vo['content']}</case>
+<case value="2">
+<if condition="substr($vo['content'],-4) eq '.mp3'">
+<audio controls style="width:160px;">
+<source src="{$vo['content']}" type="audio/ogg">
+<source src="{$vo['content']}" type="audio/mpeg">
+{:L('_MSG_NO_PLAY_')}
+</audio>
+<else/>
+<a href="{$vo['content']}" target="_blank"><img width="50px" src="{$vo['content']}"></a>
+</if>
+</case>
+<case value="3">{$vo['content']|htmlspecialchars_decode|htmlspecialchars_decode}</case>
+<case value="4"></case>
+<default />unknown
+</switch>
+</td>
+<td class="blue">
+<a href="javascript:;" onclick="actbox_confirm('__CONTROLLER__/delete/msg_id/{$vo['msg_id']}','{:L('_MSG_DEL_CONFIRM_')}',true)">{:L('_DELETE_')}</a>
+<eq name="vo['msg_type']" value="4">
+<a href="__CONTROLLER__/setok/msg_id/{$vo['msg_id']}">{:L('_MSG_NOTICE_ACTION_')}</a>
+</eq>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

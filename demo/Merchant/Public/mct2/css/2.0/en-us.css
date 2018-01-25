@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+
+span.news{background-position: 68px -899px}
+span.exit {background-position: 58px -954px;}
+.num_info li h4{ font-size:16px;}
+.num_info li.m1 h4 { background-position: 55px -120px;}
+.num_info li.m2 h4 {background-position: 88px -179px;}
+.num_info li.m3 h4 {background-position: 0px -235px;}
+.data_info .hd h3 {background: url("../../images/2.0/ico_script.png") no-repeat 116px -309px;}
+.data_info dt{ overflow: inherit; text-indent:0px;white-space:initial; height:auto; padding-left:20px; line-height:18px;}
+.data_info dt span{ top:0px}
+.data_info dd{ line-height:18px;}
+.app_list .hd h3{ background-position:253px -559px}
+.news_tab li.n1{ width:180px;}
+.news_tab li.n2{ width:90px;}
+.news_tab li.n1 h3{ background-position:148px -670px}
+.news_tab li.n2 h3 {background-position: 59px -731px;}
+
+menu li a{ text-indent:0px; padding:20px 0px 20px 10px; height:auto; line-height:18px; max-height:58px}
+.shouzhi_box li{ padding-top:40px;}
+.shouzhi_box li p{ top:5px}
+.shouzhi_box li .line{ height:160px;}
+menu h2{ font-size:16px;}
+.left_m dd{ padding-left:212px}
+.left_m dt{ width:190px}
+.article_con p span{ display:inline-block; width:66px; text-align:right}
+.from_box dt{white-space:normal}

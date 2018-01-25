@@ -1,0 +1,22 @@
+<menu>
+<h2>- {:L('_T_ACCOUNT_')} -</h2>
+<ul>
+<?php
+#判断有无T账户管理权限
+$findauth=false;
+foreach($admin['auths'] as $value){
+    foreach($value['auth'] as $key2=>$value2)
+    if($key2==118){
+        $findauth=true;	
+        break;
+    }
+}
+if($findauth){
+?>
+<li <eq name="left_menuid" value="1">class="cur"</eq>><a href="/account">{:L('_ACCOUNT_INFO_')}</a></li>
+<li <eq name="left_menuid" value="2">class="cur"</eq>><a href="/account/tradelog">{:L('_ACCOUNT_TRADE_LOG_')}</a></li>
+<li <eq name="left_menuid" value="3">class="cur"</eq>><a href="/account/applog">{:L('_ACCOUNT_APP_LOG_')}</a></li>
+<?php } ?>
+<li <eq name="left_menuid" value="4">class="cur"</eq>><a href="/account/shop">{:L('_ACCOUNT_SHOP_')}</a></li>
+</ul>
+</menu>

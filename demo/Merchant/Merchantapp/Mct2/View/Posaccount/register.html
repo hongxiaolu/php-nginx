@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>激活T账户 - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" href="/Public/js/jquery.datetimepicker.css" />
+<script type="text/javascript" src="/Public/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+<script language="javascript">
+function checkaccept(){
+	if($("#accept").attr("checked")!="checked"){
+		alert('您必须同意《T账户服务协议》才可激门店T账户');
+		return false;	
+	}
+}
+</script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">账户激活</div>
+<form method="post" action="/posaccount/registersave" onSubmit="return checkaccept()">
+<article class="boxRightCon">
+<div class="borderb jh_text">
+<div class="f2">欢迎使用T账户！</div>
+<p>T账户是智能云服务平台为您提供了专业的营销管理账户</p>
+<p>您在平台内的一切营销收支经费（应用购买、服务分润等）都可以通过T账户进行管理</p>
+<p>您的也可以使用对接银行账户对T账户进行充值或提现</p>
+</div>
+<div class="jh_yzm jh_list">
+<div class="doc_box">
+<label><input name="accept" id="accept" type="checkbox" value="1" checked>我已阅读和同意</label><span>T账户服务协议</span>
+<div class="show_doc">
+<b></b>
+<div class="doc_sorll">
+<h2>T账户服务协议</h2>
+<p>欢迎使用T账户服务。“T账户”是由深圳市淘淘谷信息技术有限公司（以下简称“淘淘谷公司”或“本公司”）与您，就您在淘淘谷公司合作的平台上产生的消费及收益，双方进行结算的账户（以下简称“T账户服务”）。为了保障您的权益，请您确认已于使用T账户服务前，已经详细阅读了本服务协议的所有内容。 </p>
+<h3>第一章 总则 </h3>
+<p>1.您开通 “T账户”的行为，即表示您已阅读、理解并同意接受本服务协议之所有内容。 </p>
+<p>2.鉴于网络服务的特殊性，T账户服务协议及T账户功能可由本公司随时更新，且无需另行通知。您在使用T账户服务时，应关注并遵守其所适用的相关条款。 </p>
+<p>3.您在使用T账户服务之前，应仔细阅读本服务协议。如您不同意本服务协议及/或本公司随时对其的修改，您可以主动取消T账户服务；您一旦使用T账户服务，即视为您已了解并完全同意本服务协议各项内容，包括本公司对服务协议随时所做的任何修改以及本公司对T账户服务功能进行的修改。</p>
+<p>本公司拥有本服务协议在法律许可范围内的最终解释权。</p>
+<p>5.您保证，在您同意接受本协议并开通“T账户”时，您是在中国大陆地区合法开展经营活动或其他业务的法人或其他组织；本协议内容不受您所属国家或地区法律的排斥。不具备前述条件的，您应立即终止开通或停止使用本服务。</p>
+<h3>第二章 T账户服务使用约定</h3>
+<p>1.T账户：是本公司向您提供的，用于充值、向淘淘谷公司支付款项及收款的账户，包括查询或计量您应用购买应付款、应用分润应收款等功能。</p>
+<p>2.充值：您可以通过银行卡或其他途径向T账户充值，充值的金额可用于购买应用，不可提现。商户提出注销该账户后，淘淘谷公司在结算完后退给您；但如您需要注销您的账户，应按本公司有关规定办理销户手续；本公司注销该账户，即表明本公司与您之间的协议已终止，但您仍应对您使用本服务期间的行为承担可能的违约或损害赔偿责任，同时本公司仍可保有您的相关信息。</p>
+<p>3.应用分润：指商户基于内容型应用通过实际产生的销售获得的收益，具体应用分润比例参照应用市场相关应用介绍。应用分润收益可用于提现及购买应用。</p>
+<p>4.购买应用的收费标准、应用的分润标准依各应用的说明执行。您账户余额不足以支付应付款项时，本公司有权停止您的账户及应用服务。</p>
+<h3>第三章 其他</h3>
+<p>1.本公司系统因下列状况无法正常运作，使您无法使用各项服务时，本公司不承担损害赔偿责任，该状况包括但不限于：</p>
+<p>（一）本公司在本网站公告之系统停机维护期间。</p>
+<p>（二）电信设备出现故障不能进行数据传输的。</p>
+<p>（三）因台风、地震、海啸、洪水、停电、战争、恐怖袭击等不可抗力之因素，造成本公司系统障碍不能执行业务的。</p>
+<p>（四）由于黑客攻击、电信部门技术调整或故障、网站升级、银行方面的问题等原因而造成的服务中断或者延迟。</p>
+<p>2.在法律允许的情况下，本公司对于与本协议有关或由本协议引起的任何间接的、惩罚性的、特殊的、派生的损失（包括业务损失、收益损失、利润损失、商誉损失、使用数据 或其他经济利益的损失），不论是如何产生的，也不论是由对本协议的违约（包括违反保证）还是由侵权造成的，均不负有任何责任，即使事先已被告知此等损失的可能性。另外即使本协议 规定的排他性救济没有达到其基本目的，也应排除本公司对上述损失的责任。</p>
+<p>3.除本协议另有规定或本公司另行同意外，您对本公司的委托及向本公司发出的指令均不可撤销。</p>
+<p>4.本协议之效力、解释、变更、执行与争议解决均适用中华人民共和国法律，没有相关法律规定的，参照通用国际商业惯例和（或）行业惯例。因本协议产生之争议，均应依照中华人民共和国法律予以处理，并以被告住所地人民法院为第一审管辖法院。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="vip_btn user_detailsbtn">
+<div class="btn fabu_btn"><input type="submit" value="激活门店T账户"></div>
+</div>
+</article>
+</form>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

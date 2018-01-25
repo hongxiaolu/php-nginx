@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>交易流水 - {$admin['shop_name']}</title>
+<include file="./css" />
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+<script type="text/javascript">
+$(function(){
+	//隔行变色
+	ttgWeb.oddColor();
+	//日期
+	jQuery.datetimepicker.setLocale('{:substr(strtolower(LANG_SET),0,2)}');
+	$('.datetimepicker').datetimepicker({
+		timepicker:false,
+		format:'Y-m-d'
+	});
+});
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Pos/left_menu" />
+<div class="content">
+<div class="hd">交易流水</div>
+<form action="__CONTROLLER__/" method="post">
+<div class="search_box">
+<dl>
+<dt>交易时间 : </dt>
+<dd><input class="datetimepicker txt date" name="sdate" value="{$map.sdate}" type="text"/> — <input type="text" class="datetimepicker txt date" name="edate" value="{$map.edate}"/></dd>
+
+<dt>订单号 : </dt>
+<dd><input type="text" name="ord_no" value="{$map.ord_no}" placeholder="订单号" /></dd>
+
+
+<dt>支付方式 : </dt>
+<dd>
+<span class="sel sel_2">
+<select name="pmt_tag">
+<option value="">支付方式</option>
+<volist name="paylist" id="value">
+<option value="{$value['pmt_tag']}" <eq name="value['pmt_tag']" value="$map['pmt_tag']">selected</eq>>{$value['pmt_name']}</option>
+</volist>
+</select>
+</span>
+</dd>
+
+<dt>交易类型 : </dt>
+<dd>
+<span class="sel sel_2">
+<select name="ord_type">
+<option value="">交易类型</option>
+<option value="1" <eq name="map.ord_type" value="1">selected</eq>>消费</option>
+<option value="2" <eq name="map.ord_type" value="2">selected</eq>>退款</option>
+<option value="3" <eq name="map.ord_type" value="3">selected</eq>>其它</option>
+</select>
+</span>
+</dd>
+
+<dt>交易状态 : </dt>
+<dd>
+<span class="sel sel_2">
+<select  name="status">
+<option value="">订单状态</option>
+<option value="1" <eq name="map.status" value="1">selected</eq>>交易成功</option>
+<option value="2" <eq name="map.status" value="2">selected</eq>>未付款</option>
+<option value="4" <eq name="map.status" value="4">selected</eq>>已取消</option>
+<option value="9" <eq name="map.status" value="9">selected</eq>>等待用户输入密码</option>
+</select>
+</span>
+</dd>
+</dl>
+<button type="submit" class="btn search_btn">{:L('_SEARCH_')}</button>
+</div>
+</form>
+<neq name="list" value="">
+<div class="table pd20">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th nowrap scope="col" >流水号</th>
+<th nowrap scope="col" >单号</th>
+<th nowrap scope="col" >订单名称</th>
+<th nowrap scope="col" >类型</th>
+<th nowrap scope="col" >金额</th>
+<th nowrap scope="col" >交易时间</th>
+<th nowrap scope="col" >付款方式</th>
+<th nowrap scope="col" >状态</th>
+<th nowrap scope="col" >收银员</th>
+<th nowrap scope="col" >操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+<tr>
+<td >{$vo['ord_shop_id']}</td>
+<td >{$vo['ord_no']}</td>
+<td>{$vo['ord_name']}</td>
+<td >
+<switch name="vo.ord_type">
+<case value="1">消费</case>
+<case value="2"><span class="red">退款</span></case>
+<case value="3"><span class="green">充值</span></case>
+<default />未知
+</switch></td>
+<td >
+{$vo['currency_sign']}{$vo['trade_amount']/100|number_format=###,2}</td>
+<td >{$vo['add_time']}</td>
+<td>{$vo['diy_pmt_name']|default=$vo['pmt_name']}</td>
+<td >
+<switch name="vo.status">
+<case value="1">交易成功</case>
+<case value="2"><span class="blue">未付款</span></case>
+<case value="4">已取消</case>
+<case value="9">等待用户输入密码</case>
+<default />未知{$vo['status']}
+</switch>
+</td>
+<td >{$vo['scr_true_name']}</td>
+<td class="blue">
+<a href="__CONTROLLER__/view/ord_no/{$vo.ord_no}">明细</a></span>
+<if condition="$vo['ord_type'] eq 1">
+<switch name="vo.status">
+<case value="1"><span class="green_btn"><a href="__CONTROLLER__/refund/ord_no/{$vo.ord_no}">退款</a></span></case>
+<case value="2"><span class="green_btn"><a href="__CONTROLLER__/cancel/ord_no/{$vo.ord_no}">取消订单</a></span></case>
+<case value="4"></case>
+<case value="9"><span class="green_btn"><a href="__CONTROLLER__/cancel/ord_no/{$vo.ord_no}">取消订单</a></span></case>
+<default />
+</switch>
+</if>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

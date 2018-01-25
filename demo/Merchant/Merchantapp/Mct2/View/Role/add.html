@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ROLE_ADD_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript">
+$(function(){ttgWeb.oddColor();})
+</script>
+</head>
+<body>
+<include file="./header" />
+<form action="__CONTROLLER__/add_save" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd">{:L('_ROLE_ADD_')}</div>
+<div class="hd_line">{:L('_BASIC_SET_')} : </div>
+<div class="base_from">
+<dl>
+<dt><i class="org">*</i>{:L('_ROLE_NAME_')} : </dt>
+<dd><input  title="{:L('_ROLE_NAME_')}" class="txt required" autocomplete="off" maxlength="10" name="role_name" placeholder="{:L('_ROLE_NAME_')}" type="text" /></dd>
+<dt>{:L('_ROLE_DESC_')} : </dt>
+<dd><input  title="{:L('_ROLE_DESC_')}" class="txt" autocomplete="off" maxlength="50" name="role_desc" placeholder="{:L('_ROLE_DESC_')}" type="text" /></dd>
+</dl>
+</div>
+<div class="hd_line">{:L('_ROLE_AUTH_')} : </div>
+<div class="perm_from set_box">
+<dl>
+<volist name="rows['auths']" id="vo">
+<dt>{$vo['channel_name']} : </dt>
+<dd>
+<div class="perm_line">
+<div class="perm_list checkbox clearfix">
+<ul>
+<foreach name="vo['auth']" key="key" item="vo2">
+<li class="checkbox_input"><label><input type="checkbox" name="auth_id[]" value="{$key}">
+{$vo2['auth_name']}</label></li>
+</foreach>
+</ul>
+</div>
+</div>
+</dd>
+</volist>
+</dl>
+</div>
+<div class="center_block bottom70">
+<button class="btn blue_btn" type="submit">{:L('_SUBMIT_')}</button><button type="button" class="btn gray_btn2 left50" onClick="window.history.back()">{:L('_CANCEL_')}</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+<include file="./footer" />
+</body>
+</html>

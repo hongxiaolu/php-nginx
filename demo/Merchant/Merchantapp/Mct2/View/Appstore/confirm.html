@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_APP_BUY_MSG_')}</title>
+<include file="./css" />
+</head>
+<body>
+<div class="alert_box">
+<div class="alert_mod">
+<p class="left30 buymsg center_block">{:L('_APP_BUY_MSG_')}</p>
+<p class="left30 tryoutmsg center_block">{:L('_APP_TRYOUT_MSG_')}</p>
+<dl class="top20 buymsg">
+<dt>{:L('_APP_PRICE_')} : </dt>
+<dd id="price"></dd>
+<dt>{:L('_APP_BUY_TOTAL_')} : </dt>
+<dd id="total"></dd>
+</dl>
+</div>
+<div class="alert_btns">
+<button type="button" class="btn alert_btn1" onClick="parent.$('#confirm_buy').val('1');parent.$('#btn_buy').click();">{:L('_OK_')}</button>
+<button type="button" class="btn alert_btn2 left20" onClick="parent.$('#confirm_buy').val('0');parent.layer.closeAll();">{:L('_CANCEL_')}</button>
+</div>
+</div>
+<script language="javascript">
+$(function(){
+	if(parent.$("#tips_price").next().text()!=''){
+		$("#price").html(parent.$("#tips_price").next().text());
+		$("#total").html(parent.$("#tips_total").next().text());	
+		$(".buymsg").show();$(".tryoutmsg").hide();
+	}else{
+		$(".buymsg").hide();$(".tryoutmsg").show();	
+		parent.$('iframe,.layui-layer-iframe').css('height',$('.alert_box').height()+45+'px');
+	}
+	
+})
+</script>
+</body>
+</html>

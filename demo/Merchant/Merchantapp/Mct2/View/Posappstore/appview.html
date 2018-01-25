@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$rows['app_name']} - {:L('_APPSTORE_')}</title>
+<include file="./css" />
+<link rel="stylesheet" type="text/css" href="/Public/mct2/js/lightbox.css" />
+<script type="text/javascript" src="/Public/mct2/js/lightbox.js"></script>
+<script src="/Public/mct2/js/jquery.slide.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#marquee').jCarouselLite({
+		btnPrev: '#prev',
+		btnNext: '#next',
+		visible:2
+	});
+});
+</script>
+</head>
+<body>
+<include file="./header" />
+<form method="post" action="__CONTROLLER__/buy">
+<div class="con_bg clearfix">
+<div class="main">
+<menu class="mall_menu">
+<h2>- {$rows['app_name']} -</h2>
+<div class="mall_menu_box">
+<img src="{$rows['app_logo']}">
+<button class=" btn blue_btn top20 size_14">
+<eq name="rows['app_pay_type']" value="0">
+{:L('_FREE_')}
+<else/>
+{$rows['currency_sign']} {$rows['app_price']/100|number_format=###,2} /
+<switch name="rows['app_pay_type']" >
+<case value="0">{:L('_FREE_')}</case>
+<case value="1">{:L('_DAY_')}</case>
+<case value="2">{:L('_WEEK_')}</case>
+<case value="3">{:L('_MONTH_')}</case>
+<case value="4">{:L('_QUARTER_')}</case>
+<case value="5">{:L('_YEAR_')}</case>
+<case value="6">{:L('_ONCE_')}</case>
+<default />unknown
+</switch></eq>
+</button>
+
+<neq name="rows['app_pay_type']" value="0">
+<gt name="rows['app_tryout']" value="0" >
+<button class=" btn blue_btn top20 size_14" onClick="$('#tryout').val(1)">{:L('_APP_TRYOUT_')}</button>
+</gt>
+</neq>
+
+</div>
+</menu>
+<div class="content">
+<div class="hd">{:L('_APPSTORE_')} > {$rows['apt_name']} > {$rows['app_name']}</div>
+<div class="mall_hd"><i class="ico_1"></i>{:L('_APP_INTRO_')}</div>
+<div class="pd30 top10">{$rows['app_intro']}</div>
+<div class="mall_hd"><i class="ico_2"></i>{:L('_APP_SCREENSHOT_')}</div>
+<div class="pp_box_list">
+<a href="javascript:void(0);" id="prev"></a>
+<div id="marquee">
+<ul>
+<foreach name="rows['ver_photos']" item="vo">
+<li><a href="{$vo}" class="example-image-link"  data-lightbox="example-set" data-title="{$rows['app_name']} {$rows['app_ver']} "><img src="{$vo}" width="363" height="218" /></a></li>
+</foreach>
+</ul>		
+</div>
+<a href="javascript:void(0);" id="next"></a>
+</div>
+<div class="mall_hd"><i class="ico_4"></i>{:L('_APP_ABOUT_')}</div>
+<div class="pd30 top10">
+<ul>
+<li>{:L('_APP_APT_NAME_')} : {$rows['apt_name']}</li>
+<li>{:L('_APP_SIZE_')} : <gt name="rows['app_size']|substr_count=###,1" value="0">{:L('_APP_SIZE_1_')}</gt>
+<gt name="rows['app_size']|substr_count=###,2" value="0">{:L('_APP_SIZE_2_')}</gt>
+<gt name="rows['app_size']|substr_count=###,3" value="0">{:L('_APP_SIZE_3_')}</gt></li>
+<li>{:L('_APP_VER_')} : {$rows['app_ver']}</li>
+<li>{:L('_DEV_NAME_')} : {$rows['dev_name']}</li>
+<li>{:L('_UPD_TIME_')} : {$rows['ver_upd_time']|strtotime|date='Y-m-d',###}</li>
+
+</ul>
+</div>	
+<div class="mall_hd"><i class="ico_3"></i>{:L('_APP_UPD_LOG_')}</div>
+<div class="daily">
+<ul>
+<li>
+<p>{$rows['app_ver']} <span>{$rows['ver_upd_time']|strtotime|date='Y-m-d',###}</span></p>
+<p>{$rows['ver_intro']} </p>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+
+<input type="hidden" name="tryout" id="tryout" value="0">
+<input type="hidden" name="app_id" value="{$rows['app_id']}">
+</form>
+
+<include file="./footer" />
+</body>
+</html>

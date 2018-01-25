@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>用户扫码 - {$admin['shop_name']} - {$admin['mct_name']}</title>
+<include file="./css" />
+
+<script language="javascript" src="/Public/js/jquery.qrcode.min.js"></script>
+<script language="javascript">
+$(function(){
+	<eq name="rows['status']" value="2">
+	jQuery('#qrcode').qrcode({width: 300,height: 300,text: "{$rows['trade_qrcode']}",src:"/Public/mct2/images/qrcode/{$rows['pmt_tag']}.png"});
+	<else/>
+	$("#qrcode").html('<h2>等待用户输入密码确认</h2>');
+	</eq>
+	checkstatus();
+})
+
+function checkstatus(){
+	url="/pos/paystatus?ord_no={$rows['ord_no']}&dataType=json";
+	$.ajax({
+		url: url,
+		cache: false,
+		dataType: "json", 
+		timeout: 2000,
+		success: function(result){
+			//console.info(result['data']);
+			if(result['data']==undefined){
+				setTimeout('checkstatus()',1000);
+			}else{
+			    if(result['data']['status']==1){
+				document.location.href='/pos/result/ord_no/{$rows['ord_no']}';
+		 	    }else{
+				document.location.title='重新查询';
+				setTimeout('checkstatus()',1000);	
+			    }
+			} 
+		},error: function(){
+			setTimeout('checkstatus()',1000);
+		}
+	})
+}
+</script>
+
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">
+{$rows['pmt_name']}（
+<eq name="rows['status']" value="1">交易成功</eq>
+<eq name="rows['status']" value="2">用户扫码</eq>
+<eq name="rows['status']" value="9">等待用户输入密码确认</eq>）
+</div>
+<div class="from_box left_m">
+<dl>
+<dt>应付金额 : </dt><dd class="space_dd">{$rows['currency_sign']}{$rows['trade_amount']/100|number_format=###,2}</dd>
+<dt>付款单号 : </dt><dd class="space_dd">{$rows['ord_no']}</dd>
+<dt>订单名称 : </dt><dd class="space_dd">{$rows['ord_name']}</dd>
+<dt>二维码 : </dt><dd><div class="img" id="qrcode"></div></dd>
+</dl>
+<div class="center_block bottom70">
+<button class="btn blue_btn" onClick="document.location.href='/Posorder/cancel/ord_no/{$rows['ord_no']}'" type="submit">取消订单</button>
+<button type="button" class="btn gray_btn2 left50" onClick="window.history.back()">{:L('_BACK_')}</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

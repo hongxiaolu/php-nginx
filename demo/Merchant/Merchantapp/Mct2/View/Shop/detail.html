@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SHOP_DETAIL_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" type="text/css" href="/Public/mct2/js/lightbox.css" />
+<script type="text/javascript" src="/Public/mct2/js/lightbox.js"></script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd">{:L('_SHOP_DETAIL_')} </div>
+<div class="from_box left_m mendian ">
+<dl class="clearfix">
+<dt>{:L('_SHOP_NAME_')} : </dt>
+<dd class="space_dd">{$rows['shop_name']}</dd>
+<dt>{:L('_SHOP_FULL_NAME_')} : </dt>
+<dd class="space_dd">{$rows['shop_full_name']}</dd>
+<dt>{:L('_SHOP_NO_')} : </dt>
+<dd class="space_dd">{$rows['shop_no']}</dd>
+<dt>{:L('_SHOP_LOGO_')} : </dt>
+<dd class="space_dd"><img src="{$rows['logo']}" width="70" height="70"></dd>
+<dt>{:L('_SHOP_LOCAL_')} : </dt>
+<dd class="space_dd">{$rows['province']}-{$rows['city']}-{$rows['county']}</dd>
+<dt>{:L('_SHOP_ADDRESS_')} : </dt>
+<dd class="space_dd">{$rows['address']}</dd>
+<dt>{:L('_SHOP_TEL_')} : </dt>
+<dd class="space_dd">{$rows['tel']}</dd>
+<dt>{:L('_SHOP_STATUS_')} : </dt>
+<dd class="space_dd"><switch name="rows['status']">
+<case value="0">{:L('_SHOP_STATUS_0_')}</case>
+<case value="1">{:L('_SHOP_STATUS_1_')}</case>
+<case value="2">{:L('_SHOP_STATUS_2_')}</case>
+<case value="3">{:L('_SHOP_STATUS_3_')}</case>
+<case value="4">{:L('_SHOP_STATUS_4_')}</case>
+<default />unknown
+</switch><br/>
+<span class="red">{$rows.remark}</span></dd>
+<dt>{:L('_SHOP_PIC_')} : </dt>
+<dd class="space_dd">
+<ul>
+<li><a href="{$rows['pic1']}" class="example-image-link"  data-lightbox="example-set" data-title="{:L('_SHOP_PIC_FACADE_')}"><img height="82" width="128" src="{$rows['pic1']}"></a></li>
+<li><a href="{$rows['pic2']}" class="example-image-link"  data-lightbox="example-set" data-title="{:L('_SHOP_PIC_CASHIER_')}"><img height="82" width="128" src="{$rows['pic2']}"></a></li>
+<li><a href="{$rows['pic3']}" class="example-image-link"  data-lightbox="example-set" data-title="{:L('_SHOP_PIC_INSTORE_')}"><img height="82" width="128" src="{$rows['pic3']}"></a></li>
+</ul>
+</dd>
+</dl>
+<div class="top40"><button type="button" onClick="window.history.back()" class="btn blue_btn left140">{:L('_BACK_')}</button></div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

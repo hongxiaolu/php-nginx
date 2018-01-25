@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:C('mct_site_name')} - {:L('_INDEX_HELP_')}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+
+<div class="con_bg clearfix">
+<div class="main">
+<div class="help_box">
+<div class="hd">{:L('_INDEX_HELP_')}</div>
+<div class="help_list">
+{:L('_INDEX_HELP_LIST_')}
+</div>
+<div class="help_tel">
+{:L('_INDEX_HELP_TEL_',array('mct_kefu_tel' => C('mct_kefu_tel'),'mct_kefu_open_hours' => C('mct_kefu_open_hours'),'mct_kefu_email' => C('mct_kefu_email')))}
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

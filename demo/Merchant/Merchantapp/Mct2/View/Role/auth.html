@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ROLE_AUTH_VIEW_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript">
+$(function(){ttgWeb.oddColor();})
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd">{:L('_ROLE_AUTH_VIEW_')}</div>
+<div class="hd_line">{:L('_BASIC_INFO_')} : </div>
+<div class="base_from">
+<dl>
+<dt>{:L('_ROLE_NAME_')} : </dt>
+<dd class="space_dd bottom20">{$rows['roles']['role_name']}</dd>
+<dt>{:L('_ROLE_DESC_')} : </dt>
+<dd class="space_dd bottom20">{$rows['roles']['role_desc']}</dd>
+</dl>
+</div>
+<div class="hd_line">{:L('_ROLE_AUTH_')} : </div>
+<div class="perm_from set_box">
+<dl>
+
+<volist name="rows['auths']" id="vo">
+<dt>{$vo['channel_name']} : </dt>
+<dd>
+<div class="perm_line">
+<div class="perm_list checkbox clearfix">
+<ul>
+<foreach name="vo['auth']" key="key" item="vo2">
+<eq name="vo2['checked']" value="1"><li>{$vo2['auth_name']}</li></eq>
+</foreach>
+</ul>
+</div>
+</div>
+</dd>
+</volist>
+</dl>
+</div>
+<div class="center_block bottom70">
+<button onClick="window.history.back()" class="btn blue_btn">{:L('_BACK_')}</button>
+</div>
+
+</div>
+</div>
+</div>
+<input type="hidden" name="role_id" value="{$map['role_id']}">
+</form>
+<include file="./footer" />
+</body>
+</html>

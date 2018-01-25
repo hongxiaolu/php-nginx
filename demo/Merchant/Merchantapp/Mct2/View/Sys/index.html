@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_BASIC_INFO_')}</div>
+<div class="from_box left_m">
+<dl>
+<dt>{:L('_SYS_MCT_NAME_')} : </dt>
+<dd class="space_dd">{$admin['mct_name']}</dd>
+<dt>{:L('_SYS_MCT_NO_')} : </dt>
+<dd class="space_dd">{$admin['mct_no']}</dd>
+<dt>{:L('_SYS_MANGER_SHOP_')} : </dt>
+<dd class="space_dd">
+<eq name="admin['shop']" value="ALL">
+{:L('_SYS_ALL_SHOP_')}
+<else/>
+<foreach name="admin['shop']" item="vo" key="key"><gt name="key" value="0">、</gt>{$vo['shop_name']}</foreach>
+</eq>&nbsp; 
+</dd>
+<dt>{:L('_SYS_USER_NAME_')} : </dt>
+<dd class="space_dd">{$admin['user_name']}</dd>
+<dt>{:L('_SYS_TRUE_NAME_')} : </dt>
+<dd class="space_dd">{$admin['true_name']}</dd>
+<dt>{:L('_SYS_MY_ROLES_')} : </dt>
+<dd class="space_dd"><foreach name="admin['roles']" item="vo" key="key"><gt name="key" value="0">、</gt>{$vo}</foreach></dd>
+<dt>{:L('_SYS_ADMIN_MCT_SHOP_')} : </dt>
+<dd class="space_dd">{$admin['shop_full_name']|default='&nbsp;'}</dd>
+<dt>{:L('_MOBILE_')} : </dt>
+<dd class="space_dd">{$admin['mobile']|substr=###,0,3}*****{$admin['mobile']|substr=###,-3} <a href="/sys/mobile" class="btn alert_btn1 left20">{:L('_EDIT_')}</a></dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

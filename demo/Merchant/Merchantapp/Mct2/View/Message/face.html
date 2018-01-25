@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_MSG_FACE_EDIT_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<form enctype="multipart/form-data" action="__CONTROLLER__/face_save" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_MSG_FACE_EDIT_')}</div>
+<div class="base_from">
+<dl>
+<dt>{:L('_MSG_THIS_FACE_')} : </dt>
+<dd><img src="{$admin['face']|default='/Public/mct2/images/face.jpg'}" lowsrc="/Public/mct2/images/face.jpg" /></dd>
+<dt><i class="org">*</i>{:L('_MSG_UPLOAD_FACE_')} : </dt>
+<dd><input title="{:L('_MSG_UPLOAD_FACE_')}" class="required" size="50" type="file" name="photo" required="required" style="width:200px"/><span>{:L('_MSG_PIC_TIP_')}</span></dd>
+</dl>
+</div>
+<div class="center_block bottom70">
+<button class="btn blue_btn" type="submit">{:L('_SUBMIT_')}</button><button type="button" class="btn gray_btn2 left50" onClick="window.history.back()">{:L('_CANCEL_')}</button>
+</div>
+</div>
+</div>
+</div>
+<input type="hidden" id="GO_SUBMIT" value="1">
+</form>
+
+<include file="./footer" />
+</body>
+</html>

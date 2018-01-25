@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_MSG_ONLINE_USER_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_MSG_ONLINE_USER_')}</div>
+<div class="table pd20">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_MSG_USER_FACE_')}</th>
+<th>{:L('_MSG_USER_ID_')}</th>
+<th>{:L('_MSG_TRUE_NAME_')}</th>
+<th>{:L('_MSG_USER_SHOP_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo" >
+<tr>
+<td><img src="{$vo['face']|default='/Public/mct2/images/face.jpg'}"></td>
+<td>{$vo['scr_id']}</td>
+<td>{$vo['true_name']}</td>
+<td>{$vo['shop_name']}</td>
+<td class="blue"><a href="/message/send/to_type/5/msg_to/{$vo['scr_id']}/to_name/{$vo['true_name']}">{:L('_MSG_SEND_')}</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

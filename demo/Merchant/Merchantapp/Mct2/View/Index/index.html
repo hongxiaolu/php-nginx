@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$admin['mct_name']} - {:L('_INDEX_ADMIN_HOME_')}</title>
+<include file="./css" />
+<script type="text/javascript" src="/Public/mct2/js/jquery.DB_tabMotionBanner.min.js"></script>
+<script type="text/javascript" src="/Public/mct2/js/index.js"></script>
+</head>
+<body>
+<include file="./header" />
+
+<!--焦点图-->
+<div class="DB_tab">
+<ul class="DB_imgSet">
+<li style="background-image:url(/Public/mct2/images/2.0/slide_img1.jpg)">
+<div>
+<img class="DB_1_1" src="/Public/mct2/images/2.0/slide_img2.png">
+<img class="DB_1_2" src="/Public/mct2/images/2.0/slide_img3.png">
+</div>
+</li>
+<li style="background-image:url(/Public/mct2/images/2.0/slide_img1.jpg)">
+<div>
+<img class="DB_2_1" src="/Public/mct2/images/2.0/slide_img2.png">
+<img class="DB_2_2" src="/Public/mct2/images/2.0/slide_img3.png">
+</div>
+</li>
+<li style="background-image:url(/Public/mct2/images/2.0/slide_img1.jpg)">
+<div>
+<img class="DB_3_1" src="/Public/mct2/images/2.0/slide_img2.png">
+<img class="DB_3_2" src="/Public/mct2/images/2.0/slide_img3.png">
+</div>
+</li>
+</ul>
+<div class="DB_menuWrap">
+<div class="DB_menuSet">
+<span></span>
+<span></span>
+<span></span>
+</div>
+<div class="DB_next"></div>
+<div class="DB_prev"></div>
+</div>
+</div>
+
+<div class="main num_info clearfix">
+<ul>
+<li class="m1 marquee">
+<h4>{:L('_INDEX_TODAY_TRADE_AMOUNT_')}</h4>
+<foreach name="today_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['trade_amount']/100|number_format=###,2}</p>
+</foreach>
+</li>
+<li class="m2 marquee">
+<h4>{:L('_INDEX_TODAY_TRADE_NUM_')}</h4>
+<foreach name="today_trade" item="vo">
+<p>{$vo['trans_num']}</p>
+</foreach>
+</li>
+<li class="m3 marquee">
+<h4>{:L('_INDEX_TODAY_TRADE_AVG_')}</h4>
+<foreach name="today_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['avg_trade_amount']/100|number_format=###,2}</p>
+</foreach>            
+</li>
+</ul>
+</div>
+
+
+<div class="main data_info clearfix">
+<div class="hd">
+<h3>{:L('_INDEX_TRADE_INFO_')}</h3>
+</div>
+<ul>
+<li class="d1">
+<hr />
+<div class="data_mod">
+<div class="tit">{:L('_YESTODAY_')}</div>
+<dl>
+<dt><span>:</span>{:L('_INDEX_TRADE_ORIGINAL_AMOUNT_')}</dt>
+<dd class="marquee"><foreach name="yestoday_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['original_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_DISCOUNT_AMOUNT_')}</dt>
+<dd class="marquee"><foreach name="yestoday_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['discount_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_AMOUNT_')}</dt>
+<dd class="org marquee"><foreach name="yestoday_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['trade_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_NUM_')}</dt>
+<dd class="marquee"><foreach name="yestoday_trade" item="vo">
+<p>{$vo['trans_num']}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_AVG_')}</dt>
+<dd class="marquee"><foreach name="yestoday_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['avg_trade_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+</dl>
+</div>
+</li>
+<li class="d2">
+<hr />
+<div class="data_mod">
+<div class="tit">{:L('_LAST_SEVEN_DAYS_')}</div>
+<dl>
+<dt><span>:</span>{:L('_INDEX_TRADE_ORIGINAL_AMOUNT_')}</dt>
+<dd class="marquee"><foreach name="seven_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['original_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_DISCOUNT_AMOUNT_')}</dt>
+<dd class="marquee"><foreach name="seven_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['discount_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_AMOUNT_')}</dt>
+<dd class="org marquee"><foreach name="seven_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['trade_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_NUM_')}</dt>
+<dd class="marquee"><foreach name="seven_days_trade" item="vo">
+<p>{$vo['trans_num']}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_AVG_')}</dt>
+<dd class="marquee"><foreach name="seven_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['avg_trade_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+</dl>
+</div>
+</li>
+<li class="d3">
+<hr />
+<div class="data_mod">
+<div class="tit">{:L('_LAST_THIRTY_DAYS_')}</div>
+<dl>
+<dt><span>:</span>{:L('_INDEX_TRADE_ORIGINAL_AMOUNT_')}</dt>
+<dd class="marquee"><foreach name="thirty_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['original_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_DISCOUNT_AMOUNT_')}</dt>
+<dd class="marquee"><foreach name="thirty_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['discount_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_AMOUNT_')}</dt>
+<dd class="org marquee"><foreach name="thirty_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['trade_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_NUM_')}</dt>
+<dd class="marquee"><foreach name="thirty_days_trade" item="vo">
+<p>{$vo['trans_num']}</p>
+</foreach></dd>
+<dt><span>:</span>{:L('_INDEX_TRADE_AVG_')}</dt>
+<dd class="marquee"><foreach name="thirty_days_trade" item="vo">
+<p>{$vo['currency_sign']}{$vo['avg_trade_amount']/100|number_format=###,2}</p>
+</foreach></dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+
+<div class="main clearfix">
+<div class="app_list">
+<div class="hd">
+<a href="/appstore" class="more">{:L('_MORE_')}</a>
+<h3>{:L('_INDEX_RECOMM_APP_')}</h3>
+</div>
+<ul>
+<foreach name="rows['app']['best']" item="vo">
+<li>
+<a href="/appstore/appview/app_id/{$vo['app_id']}.html">
+<img src="{$vo['app_logo']}" alt="" />
+<h4>{$vo['app_name']}</h4>
+<p class="gray2">{$vo['apt_name']}</p>
+<div class="show_ts">
+<h4>{$vo['app_name']}</h4>
+<p class="org">{:L('_DEV_NAME_')}: {$vo['dev_name']}</p>
+<p class="fix_h">{$vo['app_intro']}</p>
+<button class="btn app_btn">
+<eq name="vo['app_pay_type']" value="0">
+{:L('_FREE_')}
+<else/>
+{$vo['app_price']/100|number_format=###,2} /
+<switch name="vo['app_pay_type']" >
+<case value="0">{:L('_FREE_')}</case>
+<case value="1">{:L('_DAY_')}</case>
+<case value="2">{:L('_WEEK_')}</case>
+<case value="3">{:L('_MONTH_')}</case>
+<case value="4">{:L('_QUARTER_')}</case>
+<case value="5">{:L('_YEAR_')}</case>
+<case value="6">{:L('_ONCE_')}</case>
+<default />unknown
+</switch></eq>
+</button>
+</div>
+</a>
+</li>
+</foreach>
+</ul>
+</div>
+
+<div class="news_box">
+<div class="news_tab clearfix">
+<ul>
+<li class="n1 cur">
+<a href="/news/index/news_type/1">
+<h3>{:L('_INDEX_NEWS_NOTICE_')}</h3>
+</a>
+</li>
+<li class="n2">
+<a href="/news/index/news_type/2">
+<b></b>
+<h3>{:L('_INDEX_NEWS_')}</h3>
+</a>
+</li>
+</ul>
+</div>
+<div class="news_con news_list">
+<ul>
+<foreach name="rows['news']['notice']" key="key" item="vo">
+<li <eq name="key" value="0">class="cur"</eq>>
+<a href="/news/detail/news_id/{$vo['news_id']}.html">
+<neq name="vo['news_pic']" value="">
+<img src="{:C('F_SERVER')}{$vo['news_pic']}" width="108" height="78" alt="" />
+</neq>
+<div class="txt">
+<h4>{$vo['news_title']}</h4>
+<p>{$vo['news_content']|htmlspecialchars_decode|htmlspecialchars_decode|strip_tags}</p>
+</div>
+<div class="show_data">
+<p class="bg1">{$vo['news_time']|strtotime|date='m-d',###}</p>
+<p class="bg2">{$vo['news_time']|strtotime|date='Y',###}</p>
+</div>
+</a>
+</li>
+</foreach>
+</ul>
+</div>
+<div class="news_con mess_list" >
+<ul> 
+<foreach name="rows['news']['news']" key="key" item="vo">
+<li><span>{$vo['news_time']|strtotime|date='Y-m-d',###}</span><a href="/news/detail/news_id/{$vo['news_id']}.html">{$vo['news_title']}<code></code></a></li>
+</foreach>
+</ul>
+</div>
+</div>
+</div>
+
+<include file="./footer" />
+<script type="text/javascript">
+$(function(){
+//焦点图
+	$('.DB_tab').DB_tabMotionBanner({
+		key:'b28551',
+		autoRollingTime:5000,                            
+		bgSpeed:500,
+		motion:
+		{
+			
+			DB_1_1:{left:100,opacity:0,speed:800,delay:100},
+			DB_1_2:{left:100,opacity:0,speed:500,delay:500},
+	
+			DB_2_1:{left:100,opacity:0,speed:800,delay:100},
+			DB_2_2:{left:100,opacity:0,speed:500,delay:500},
+	
+			DB_3_1:{left:100,opacity:0,speed:800,delay:100},
+			DB_3_2:{left:100,opacity:0,speed:500,delay:500},
+			
+	
+			end:null
+		}
+		
+	});	
+		
+//应用推荐
+	$(".app_list li").hover(function(){
+			$(this).find(".show_ts").fadeIn(100);
+		},function(){
+			$(this).find(".show_ts").fadeOut(100);
+		});
+//最新公告Tab
+	var li =$(".news_tab ul li");
+	li.live({
+		mouseover:
+		function(){
+		$(this).addClass("cur").siblings().removeClass("cur");
+			var index = li.index(this);
+		$(".news_con").eq(index).show().siblings(".news_con").hide();
+		}
+	});
+	
+	$(".news_list li").hover(function(){
+			$(this).addClass("cur").siblings().removeClass("cur");
+		});
+	$('nav .main').append('<a style=" float:right; margin:33px 0" href="https://www.baidu.com/s?wd=谷歌浏览器" target="_top">请下载使用<font color="red">谷歌浏览器</font></a>')
+});
+</script>
+</body>
+</html>

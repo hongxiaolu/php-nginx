@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap</title>
+<include file="./css" />
+<link href="/Public/mct2/pos/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script language="javascript">
+$(function(){
+	parent.$('iframe,.layui-layer-iframe').css('height',$('body').height()+80+'px');
+	parent.cardbag_result();
+})
+//取消
+function cardbag_cancel(){
+	cardbag_ok()
+}
+//确定
+function cardbag_ok(){
+	parent.layer.closeAll();
+}
+</script>
+</head>
+<body style="padding:5px;">
+<table width="100%">
+<tr>
+<td width="15%" valign="top" style="padding:3px">
+<div class="panel panel-default">
+<div class="panel-heading active">卡券包应用</div>
+<div class="panel-body">
+<ul class="nav nav-pills  nav-stacked">
+<foreach name="payapp" item="vo">
+<li role="presentation" <eq name="map['app_id']" value="$vo['app_id']">class="active"</eq>><a href="/posapp/cardbag_index/app_id/{$vo['app_id']}/ord_no/{$map['ord_no']}"><img width="48" height="48" src="{$vo['app_logo']}"><br/>{$vo['app_name']}</a></li>
+</foreach>
+</ul>
+</div>
+</div>
+</td>
+<td width="35%" valign="top" style="padding:3px">
+
+<!--查询-->
+<if condition="($map['trade_type'] eq 'query') OR ($map['trade_type'] eq 'trade') ">
+<eq name="map['trade_type']" value="trade">
+<div class="panel panel-default">
+<div class="panel-heading">已选择的优惠信息</div>
+<div class="panel-body">
+<?php
+$cardbag_data=session('cardbag_data');
+?>
+<neq name="map['rows_id']" value="">
+<foreach name="cardbag_data" item="vo">
+<eq name="vo['rows_id']" value="$map['rows_id']">{$vo['remark']}</eq>
+</foreach>
+<else/>
+{$cardbag_data[0]['remark']}
+</neq>
+</div>
+</div>
+</eq>
+
+<form onSubmit="return ttgValidata(this)" method="post" action="/posapp/cardbag_query/">
+<foreach name="cur_fields" item="vo">
+<switch name="vo['type']" >
+<case value="text" break="1">
+<div class="input-group">
+<input title="{$vo['text']}" name="{$vo['name']}" id="{$vo['name']}" type="text" class="form-control <eq name="vo['required']" value="true">required</eq>" placeholder="{$vo['text']}">
+<if condition="isset($vo['scan']) and ($vo['scan'] eq 'true')">
+<span class="input-group-btn">
+<button class="btn btn-default" type="button">扫码</button>
+</span>
+</if>
+</div>
+<br/> 
+</case>
+
+<case value="password" break="1">
+<div class="input-group ">
+<input name="{$vo['name']}" id="{$vo['name']}" type="text" onfocus="this.type='password'" autocomplete="off" class="form-control" placeholder="{$vo['text']}">
+<span class="input-group-btn">
+<button class="btn btn-default" type="button">密码</button>
+</span>
+</div>
+<br/> 
+</case>
+
+<case value="button" break="1">
+<button type="submit" class="btn btn-default ">
+<span class="glyphicon glyphicon-search" aria-hidden="true"></span> {$vo['text']}
+</button>
+<br/> 
+</case>
+
+<case value="hidden" break="1">
+<input title="{$vo['text']}" class="<eq name="vo['required']" value="true">required</eq>" type="hidden" name="{$vo['name']}" id="{$vo['name']}">
+</case>
+
+<case value="select" break="1">
+<div class="panel panel-default">
+<div class="panel-heading">{$vo['text']}</div>
+<div class="panel-body select">
+<select placeholder="{$vo['text']}" id="{$vo['name']}" >
+<foreach name="vo['list']" item="vo2" >
+<option value="{$vo2['value']}" <eq name="vo2['select']" value="true">selected</eq>>{$vo2['text']}</option>
+</foreach>
+</select>
+</div>
+</div>
+</case>
+
+<case value="radio" break="1">
+<div class="panel panel-default">
+<div class="panel-heading">{$vo['text']}</div>
+<div class="panel-body skin-minimal">
+<foreach name="vo['list']" item="vo2" >
+<label>
+<input type="radio" name="{$vo['name']}" id="{$vo['name']}" value="{$vo2['value']}" aria-label="{$vo2['text']}" <eq name="vo2['select']" value="true">checked</eq>> {$vo2['text']}
+</label>
+</foreach>
+</div>
+</div>
+</case>
+
+<case value="checkbox" break="1">
+<div class="panel panel-default">
+<div class="panel-heading">{$vo['text']}</div>
+<div class="panel-body skin-minimal">
+<foreach name="vo['list']" item="vo2" >
+<label>
+<input type="checkbox" name="{$vo['name']}" id="{$vo['name']}" value="{$vo2['value']}" aria-label="{$vo2['text']}" <eq name="vo2['select']" value="true">checked</eq>> {$vo2['text']}
+</label>
+</foreach>
+</div>
+</div>
+</case>
+
+</switch>
+
+<if condition="($vo['name'] eq 'trade_amount') OR ($vo['name'] eq 'discount_amount') OR ($vo['name'] eq 'no_discount_amount')">
+<script language="javascript">$("#{$vo['name']}").val(parseFloat(parent.$("#sys_{$vo['name']}").val())*100);</script>
+</if>
+<if condition="($map[$vo['name']] neq '')">
+<script language="javascript">$("#{$vo['name']}").val("{$map[$vo['name']]}");</script>
+</if>
+</foreach>
+<input type="hidden" name="trade_type" value="{$map['trade_type']}">
+<input type="hidden" name="app_id" value="{$map['app_id']}">
+<input type="hidden" name="ord_no" id="ord_no">
+</form>
+<script language="javascript">$("#ord_no").val(parent.$("#sys_ord_no").val());</script>
+</if>
+
+
+<!--选择-->
+<eq name="map['trade_type']" value="select">
+<div class="list-group">
+<a href="#" class="list-group-item active">请选择</a>
+<?php
+$cardbag_data=session('cardbag_data');
+$map['trade_type']='trade';
+?>
+<foreach name="cardbag_data" item="vo">
+<a href="/posapp/cardbag_index?{:http_build_query($map)}&rows_id={$vo['rows_id']}" class="list-group-item">{$vo['remark']}</a>
+</foreach>
+</div>
+</eq>
+
+</td>
+<td width="50%" valign="top" style="padding:3px">
+<div class="panel panel-default">
+<div class="panel-heading">已使用优惠</div>
+<div class="panel-body">
+<table class="table">
+<thead>
+<tr>
+<th nowrap>应用</th>
+<th nowrap>类型</th>
+<th nowrap>金额</th>
+<th nowrap>备注</th>
+<th nowrap>操作</th>
+</tr>
+</thead>
+<tbody>
+<foreach name="cardbag_reault" item="vo_ord" key="ord_no">
+<foreach name="vo_ord" item="vo_app" key="app_id">
+<foreach name="vo_app" item="vo_trade" key="trade_no">
+<tr>
+<th>
+<volist name="payapp" id="vo">
+<eq name="vo['app_id']" value="$vo_trade['app_id']"><img title="{$vo['app_name']}" width="18" height="18" src="{$vo['app_logo']}"></eq>
+</volist>
+</th>
+<td>
+<switch name="vo_trade['type']">
+<case value="1">订单</case>
+<case value="2">折扣</case>
+<case value="3">积分</case>
+<case value="4">礼品</case>
+<case value="5">抵现</case>
+<default />未知
+</switch></td>
+<td nowrap>
+<switch name="vo_trade['type']">
+<case value="3">{$vo_trade['discount']}</case>
+<default />
+￥{$vo_trade['discount']/100}
+</switch>
+</td>
+<td>{$vo_trade['remark']}<neq name="ord_no" value="$map['ord_no']"><span class="red"><br/>异常交易，请删除</span></neq></td>
+<td><button type="button" class="btn btn-default glyphicon glyphicon-trash" onClick="actbox_confirm('/posapp/cardbag_query?trade_type=refund&ord_no={$ord_no}&app_id={$app_id}&trade_no={$vo_trade['trade_no']}','确定要删除此条优惠吗？',true)"></button></td>
+</tr>
+</foreach>
+</foreach>
+</foreach>
+</tbody>
+</table>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+<div class="container">
+<button type="button" class="btn btn-default navbar-btn" onClick="javascript:cardbag_cancel()">取消</button>
+<button type="button" class="btn btn-default navbar-btn" onClick="javascript:cardbag_ok()" style="float:right">确定</button>
+</div>
+</nav>
+</body>
+</html>

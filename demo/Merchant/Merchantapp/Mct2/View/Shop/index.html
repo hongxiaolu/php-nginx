@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_SHOP_MANGER_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd">{:L('_SYS_SHOP_MANGER_')}</div>
+<div class="table pd20">
+<neq name="list" value="">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_SHOP_NO_')}</th>
+<th>{:L('_SHOP_NAME_')}</th>
+<th>{:L('_SHOP_LOCAL_')}</th>
+<th>{:L('_SHOP_ADDRESS_')}</th>
+<th>{:L('_SHOP_TEL_')}</th>
+<th>{:L('_SHOP_TML_NUM_')}</th>
+<th>{:L('_STATUS_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+<tr>
+<td>{$vo['shop_no']}</td>
+<td>{$vo['shop_name']}</td>
+<td>{$vo['province']}-{$vo['city']}-{$vo['county']}</td>
+<td>{$vo['address']}</td>
+<td>{$vo['tel']}</td>
+<td>{$vo['tml_count']}</td>
+<td><switch name="vo['status']">
+<case value="0">{:L('_SHOP_STATUS_0_')}</case>
+<case value="1">{:L('_SHOP_STATUS_1_')}</case>
+<case value="2">{:L('_SHOP_STATUS_2_')}</case>
+<case value="3">{:L('_SHOP_STATUS_3_')}</case>
+<case value="4">{:L('_SHOP_STATUS_4_')}</case>
+<default />unknown
+</switch><br/>
+<span class="red">{$vo.remark}</span></td>
+<td class="blue" nowrap>
+<a href="__CONTROLLER__/password/shop_no/{$vo['shop_no']}">{:L('_SHOP_EDIT_PASS_')}</a>
+<a class="left10" href="__CONTROLLER__/diypayment/shop_no/{$vo['shop_no']}">{:L('_SHOP_PAYMENT_')}</a>
+<a class="left10" href="__CONTROLLER__/detail/shop_no/{$vo['shop_no']}">{:L('_DETAIL_')}</a>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

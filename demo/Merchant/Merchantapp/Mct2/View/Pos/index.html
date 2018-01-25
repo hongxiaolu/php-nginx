@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>收银台 - {$admin['shop_name']} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script type="text/javascript" src="/Public/mct2/pos/json2.js"></script>
+<script type="text/javascript" src="/Public/mct2/pos/pos.js"></script>
+<link rel="stylesheet" href="/Public/mct2/pos/pos.css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{$tml_msg}</div>
+<div class="tablem pd20">
+<form id="ordform" method="post" action="/pos/payorder" onSubmit="return ttgValidata(this)">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<tfoot>
+<tr><th>付款单号</th><td>{$map['ord_no']}</td><th>订单名称</th><td><input title="订单名称" class="txt required"  type="text" id="sys_ord_name" name="ord_name" value="{$map['ord_name']}" placeholder="订单名称"></td></tr>
+<tr><th>订单金额</th><td><input title="订单金额" class="txt required" maxlength="9" type="text" id="sys_original_amount"  name="original_amount" value="{$map['original_amount']/100}" placeholder="原始金额（元）"></td><th>不打折金额</th><td><input title="不打折金额" class="txt required" id="sys_no_discount_amount" maxlength="9" type="text" name="no_discount_amount" value="{$map['no_discount_amount']/100}" placeholder="不打折金额（元）"></td></tr>
+<tr><th>优惠金额</th><td><input title="优惠金额" readonly init_val="{$map['discount_amount']}" class="txt required" maxlength="9" type="text" id="sys_discount_amount" name="discount_amount" value="{$map['discount_amount']/100}" placeholder="折扣金额（元）"></td><th>抹零金额</th><td><input title="抹零金额" class="txt required" maxlength="9" type="text" id="sys_ignore_amount" name="ignore_amount" value="0" placeholder="抹零金额（元）"> <span class="green_btn"><a href="javascript:;" onClick="ignore(0)">抹掉分</a></span> <span class="org_btn"><a href="javascript:;"  onClick="ignore(1)">抹掉角和分</a></span></td></tr>
+<tr><th>实收金额</th><td><input title="实收金额" class="txt required" type="text" maxlength="9" id="sys_trade_amount" name="trade_amount" value="{$map['trade_amount']/100}" placeholder="实收金额（元）"></td><th></th><td></td></tr>
+<tr><th>订单备注</th><td><input class="txt" type="text" id="sys_remark" name="remark" value="{$map['remark']}"  placeholder="订单备注"></td><th>订单标记</th><td><input title="订单标记" class="txt" type="text" maxlength="50" id="tag" name="tag" value="" placeholder="收银台自定义数据"></td></tr>
+<tr><th>交易币种</th><td><span class="sel sel_2">
+<select name="currency">
+<option value="CNY">人民币</option>
+<option value="TWD">新台币</option>
+<option value="KRW">韩元</option>
+<option value="HKD">港币</option>
+<option value="USD">美元</option>
+<option value="JPY">日元</option>
+</select>
+</span>
+</td>
+<eq name="map['card_bag']" value="1">
+<th>卡券包</th><td><a href="javascript:;" onClick="javascript:open_cardbag()">打开卡券包</a></td>
+<else/>
+<th></th><td></td>
+</eq>
+
+</tr>
+<tr><th>付款方式</th><td colspan="3">
+<foreach name="paylist" item="vo">
+<label>
+<img src="{$vo['pmt_icon']}" width="32" height="32">
+<input pmt_type="{$vo['pmt_type']}" type="radio" id="sys_pmt_tag" name="pmt_tag" value="{$vo['pmt_tag']}" checked/>{$vo['pmt_internal_name']}</label>
+</foreach>
+</td></tr>
+<tr><th>支付条码</th><td><input class="txt" type="text" id="sys_auth_code" name="auth_code" placeholder="商户扫描手机获得的条码"></td><th></th><td></td></tr>
+<tr>
+  <th>卡号</th>
+  <td><input class="txt" type="text" name="trade_account" value=""></td>
+  <th rowspan="3">交易报文</th>
+  <td rowspan="3"><textarea name="trade_result" style="width:100%;height:130px;"></textarea></td>
+</tr>
+<tr><th>交易号</th><td><input class="txt" type="text" name="trade_no" value=""></td>
+</tr>
+<th>对账要素</th><td><input class="txt" type="text" name="trade_code" value=""></td>
+
+</tr>
+
+
+<tr><th></th><td></td><th></th><td></td></tr>
+</tfoot>
+</table>
+
+<div class="center_block bottom70">
+<button class="btn blue_btn" type="submit">{:L('_SUBMIT_')}</button><button type="button" class="btn gray_btn2 left50" onClick="window.history.back()">{:L('_CANCEL_')}</button>
+</div>
+<input type="hidden" name="ord_no" id="sys_ord_no" value="{$map['ord_no']}">
+<input type="hidden" name="tml_token" value="{:session('tml_token')}">
+<input type="hidden" id="GO_SUBMIT" value="1">
+<neq name="order_app" value="">
+<textarea style="display:none" name="app_para[]">{$order_app}</textarea>
+</neq>
+<div style="display:none" id="cardbag_app_para"></div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

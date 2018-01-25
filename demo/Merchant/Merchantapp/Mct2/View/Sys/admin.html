@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_ADMIN_MANGER_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd"><button class="btn alert_btn1 fr right20 top16" onClick="document.location.href='/sys/admin_add'">{:L('_SYS_ADMIN_ADD_')}</button>{:L('_SYS_ADMIN_MANGER_')}</div>
+<form action="__CONTROLLER__/admin" method="post">
+<div class="search_box">
+<dl>
+<dt>{:L('_SYS_USER_NAME_')} : </dt>
+<dd><input class="txt" name="user_name" value="{$map.user_name}" type="text"/></dd>
+<dt>{:L('_SYS_TRUE_NAME_')} : </dt>
+<dd><input class="txt" name="true_name" value="{$map.true_name}" type="text"/></dd>
+<dt>{:L('_STATUS_')} : </dt>
+<dd>
+<span class="sel sel_2">
+<select name="status">
+<option value="">{:L('_ALL_')}</option>
+<option value="1" <eq name="map['status']" value="1">selected</eq>>{:L('_SYS_ADMIN_STATUS_1_')}</option>
+<option value="2" <eq name="map['status']" value="2">selected</eq>>{:L('_SYS_ADMIN_STATUS_2_')}</option>
+<option value="3" <eq name="map['status']" value="3">selected</eq>>{:L('_SYS_ADMIN_STATUS_3_')}</option>
+<option value="4" <eq name="map['status']" value="4">selected</eq>>{:L('_SYS_ADMIN_STATUS_4_')}</option>
+</select>
+</span>
+</dd>
+</dl>
+<button type="submit" class="btn search_btn" type="submit">{:L('_SEARCH_')}</button>
+</div>
+<neq name="map['shop_no']" value=""><input type="hidden" name="shop_no" value="{$map['shop_no']}"></neq>
+</form>
+<div class="table pd20">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_SYS_ADMIN_ID_')}</th>
+<th>{:L('_SYS_TRUE_NAME_')}</th>
+<th>{:L('_SYS_USER_NAME_')}</th>
+<th>{:L('_STATUS_')}</th>
+<th>{:L('_SYS_ADMIN_ROLE_')}</th>
+<th>{:L('_SYS_ADMIN_SHOP_NUM_')}</th>
+<th>{:L('_SYS_ADMIN_MCT_SHOP_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo" >
+<tr>
+<td>{$vo['scr_id']}</td>
+<td>{$vo['true_name']}</td>
+<td>{$vo['user_name']}</td>
+<td nowrap>
+<switch name="vo['status']">
+<case value="0">{:L('_SYS_ADMIN_STATUS_0_')}</case>
+<case value="1">{:L('_SYS_ADMIN_STATUS_1_')}</case>
+<case value="2">{:L('_SYS_ADMIN_STATUS_2_')}</case>
+<case value="3">{:L('_SYS_ADMIN_STATUS_3_')}</case>
+<case value="4">{:L('_SYS_ADMIN_STATUS_4_')}</case>
+<default />unknown
+</switch></td>
+<td>{$vo['role_name']}</td>
+<td> 
+<switch name="vo['shop_num']">
+<case value="-1">{:L('_NULL_')}</case>
+<case value="0">{:L('_ALL_')}</case>
+<default />{$vo['shop_num']}
+</switch></td>
+<td>{$vo['shop_name']|default=''}</td>
+<td class="blue" nowrap>
+<a href="__CONTROLLER__/admin_edit/scr_id/{$vo['scr_id']}">{:L('_EDIT_')}</a>
+<a class="left10" href="javascript:void(0)" onClick="actbox_confirm('__CONTROLLER__/admin_delete/scr_id/{$vo['scr_id']}','{:L('_CONFIRM_DELETE_',array('objname'=>$vo['true_name']))}',true)">{:L('_DELETE_')}</a>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

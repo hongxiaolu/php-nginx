@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_EDIT_MOBILE_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<form action="__CONTROLLER__/mobile_save" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_SYS_EDIT_MOBILE_')}</div>
+<div class="from_box left_m">
+<dl>
+<dt>{:L('_SYS_NEW_MOBILE_')} : </dt>
+<dd class="space_dd top6">{$mobile}</dd>
+<dt>{:L('_SYS_SMS_CODE_')} : </dt>
+<dd><input class="txt required" title="{:L('_SYS_SMS_CODE_')}" name="sms_code" type="text" maxlength="6" placeholder="{:L('_SYS_SMS_CODE_TIP_')}" /></dd>
+</dl>
+<div class="top40"><button type="submit" class="btn blue_btn  left20">{:L('_SUBMIT_')}</button><button type="button" onClick="window.history.back()" class="btn left80 gray_btn2">{:L('_CANCEL_')}</button></div>
+</div>
+</div>
+</div>
+</div>
+<input type="hidden" name="mobile" value="{$mobile}">
+<input type="hidden" name="sms_id" value="{$sms_id}">
+</form>
+<include file="./footer" />
+</body>
+</html>

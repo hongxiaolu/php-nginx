@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_APPSTORE_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+<script src="/Public/mct2/js/jquery.hoverdir.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#da-thumbs li a').hoverdir( {
+		hoverDelay	: 30,
+		reverse		: true
+	} );
+});
+</script>
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<menu>
+<h2>- {:L('_APP_TYPE_')} -</h2>
+<ul>
+<foreach name="apt_list" item="vo">
+<li <eq name="map['apt_id']" value="$vo['apt_id']">class="cur"</eq>><a href="__CONTROLLER__/?apt_id={$vo['apt_id']}&app_size={$map['app_size']}">{$vo['apt_name']}</a></li>
+</foreach>
+</ul>
+<h2>- {:L('_APP_SIZE_')} -</h2>
+<ul>
+<li <eq name="map['app_size']" value="2">class="cur"</eq>><a href="__CONTROLLER__/?apt_id={$map['apt_id']}&app_size=2">{:L('_APP_SIZE_2_')}</a></li>
+<li <eq name="map['app_size']" value="3">class="cur"</eq>><a href="__CONTROLLER__/?apt_id={$map['apt_id']}&app_size=3">{:L('_APP_SIZE_3_')}</a></li>
+<li <eq name="map['app_size']" value="1">class="cur"</eq>><a href="__CONTROLLER__/?apt_id={$map['apt_id']}&app_size=1">{:L('_APP_SIZE_1_')}</a></li>
+</ul>
+</menu>
+<div class="content auto_h">
+<div class="hd"><a href="__CONTROLLER__">{:L('_APPSTORE_')}</a><script language="javascript">if($('menu .cur').length>0){$('menu .cur').each(function(){document.write(" &gt; "+$(this).text());})}else{document.write(" &gt; {:L('_ALL_')}")}</script></div>
+<div class="mall_list da-thumbs" id="da-thumbs">
+<ul class="clearfix">
+<neq name="list" value="">
+<volist name="list" id="vo" >
+<li>
+<a href="/appstore/appview/app_id/{$vo['app_id']}.html">
+<img src="{$vo['app_logo']}">
+<h4>{$vo['app_name']}</h4>
+<p>{$vo['apt_name']}</p>
+<div class="show_info">
+<h4>{$vo['app_name']}</h4>
+<p class="org">{:L('_DEV_NAME_')}: {$vo['dev_name']}</p>
+<p class="hidden_h">{$vo['app_intro']}</p>
+<button class="btn app_btn"><eq name="vo['app_pay_type']" value="0">
+{:L('_FREE_')}
+<else/>
+{$vo['currency_sign']} {$vo['app_price']/100|number_format=###,2} /
+<switch name="vo['app_pay_type']" >
+<case value="0">{:L('_FREE_')}</case>
+<case value="1">{:L('_DAY_')}</case>
+<case value="2">{:L('_WEEK_')}</case>
+<case value="3">{:L('_MONTH_')}</case>
+<case value="4">{:L('_QUARTER_')}</case>
+<case value="5">{:L('_YEAR_')}</case>
+<case value="6">{:L('_ONCE_')}</case>
+<default />unknown
+</switch></eq></button>
+</div>
+</a>
+</li>
+</volist>
+</ul>
+<div class="page top30 clearfix">{$page}</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>账户信息 - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" href="/Public/js/jquery.datetimepicker.css" />
+<script type="text/javascript" src="/Public/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">账户信息</div>
+<form name="cash" method="post" action="/posaccount/cashsave">
+<article class="boxRightCon">
+<div class="user_details">
+<dl>
+<dt>结算账户信息 <span class="a">T账户的充值、提现将会通过该账户完成</span><span class="a green">（修改该信息，请联系客服：{:C('kefu_tel')}）</span></dt>
+<dd>
+银行账户号：{$rows['account_no']|substr=###,0,6}******{$rows['account_no']|substr=###,-3}<br/>
+开户人：{$rows['account_name']}<br/>
+开户行：{$rows['bank_name']}
+</dd>
+</dl>
+
+<!--<dl>
+<dt>支付密码 <span class="a menutable">已启用</span><span class="org_btn"><a href="">修改</a></span></dt>
+<dd></dd>
+</dl>-->
+
+</div>
+<div class="vip_btn user_detailsbtn">
+<div class="btn fabu_btn"><a href="#" onClick="javascript:window.history.back()">返回</a></div>
+</div>
+</article>
+</form>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>

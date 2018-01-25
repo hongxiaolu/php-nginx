@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>我的应用 - {$admin['shop_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Pos/left_menu" />
+<div class="content">
+<div class="hd"><a href="__CONTROLLER__">{:L('_MY_APP_')}</a></div>
+<div class="app_box">
+<ul class="clearfix">
+<volist name="list" id="vo" >
+<li>
+<a href="__CONTROLLER__/entry/app_id/{$vo['app_id']}/app_type/1.html">
+<img src="{$vo['app_logo']}">
+<h4>{$vo['app_name']}</h4>
+<p>{$vo['apt_name']}</p>
+</a>
+</li>
+</volist>
+</ul>
+<div class="page top30 clearfix">{$page}</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

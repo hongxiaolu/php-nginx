@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_APP_MANGER_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd">{:L('_SYS_APP_MANGER_')}</div>
+<form action="__CONTROLLER__" method="post">
+<div class="search_box">
+<dl>
+<dt>{:L('_APPSET_SHOP_NAME_')} : </dt>
+<dd><input class="txt" name="shop_name" type="text" /></dd>
+<dt>{:L('_APPSET_APP_NAME_')} : </dt>
+<dd><input class="txt" name="app_name" type="text" /></dd>
+</dl>
+<button class="btn search_btn" type="submit">{:L('_SEARCH_')}</button>
+</div>
+</form>
+<div class="table pd20">
+<neq name="list" value="">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_APPSET_APP_NAME_')}</th>
+<th>{:L('_APPSET_BUY_TIME_')}</th>
+<th>{:L('_APPSET_EXPIRED_DATE_')}</th>
+<th>{:L('_APPSET_SHOP_NAME_')}</th>
+<th>{:L('_STATUS_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+<tr>
+<td>{$vo['app_name']}</td>
+<td>{$vo['buy_time']}</td>
+<td>{$vo['expired_date']}</td>
+<td>{$vo['shop_name']}</td>
+<td>
+<switch name="vo['status']" >
+<case value="1">{:L('_APPSET_TURN_ON_')}</case>
+<case value="2">{:L('_APPSET_TURN_OFF_')}</case>
+<case value="4">{:L('_APPSET_EXPIRED_')}</case>
+<default />
+</switch>
+</td>
+
+<td class="blue">
+<eq name="vo['status']" value="4">
+<span class="gray2">{:L('_APPSET_SET_AUTH_')}</span>
+<else/>
+<a href="__CONTROLLER__/setauth/sap_id/{$vo['sap_id']}">{:L('_APPSET_SET_AUTH_')}</a>
+</eq>
+</td>
+</tr>
+</volist>
+</tbody>
+</table>
+<div class="page top30 clearfix">
+{$page}
+</div>
+<else/>
+<div class="no_data"><img src="/Public/mct2/images/2.0/no_data.png"><p>{:L('_NO_DATA_')}</p></div>
+</neq>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

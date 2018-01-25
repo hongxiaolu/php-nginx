@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_RECHARGE_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<form action="__CONTROLLER__/recharge_to" method="post" onSubmit="return ttgValidata(this)">
+<div class="alert_box w1">
+<div class="alert_mod">
+<div class="pd20 center_block">
+<p>{:L('_ACCOUNT_ALANCE_NOT_ENOUGH_')}</p>
+<p class="gray2 size_12">{:L('_ACCOUNT_ALANCE_NOT_ENOUGH_TIP_')}</p>
+<dl class="top20">
+<dt>{:L('_ACCOUNT_RECHARGE_PAYMENT_')} : </dt>
+<dd>
+<div class="jffs checkbox clearfix">
+<ul>
+<foreach name="paylist" item="vo" key="key">
+<li class="checkbox_input"><label><input <eq name="key" value="0">checked</eq> name="pmt_tag" type="radio" value="{$vo['pmt_tag']}" >{$vo['pmt_name']}</label></li>
+</foreach>
+</ul>
+</div>
+</dd>
+<dt>{:L('_ACCOUNT_PAY_AMOUNT_')} : </dt>
+<dd class="text_l red">{$map['currsign_sign']} {:number_format(($map['amount2']-$map['act_balance'])/100,2)}</dd>
+</dl>
+</div>
+</div>
+<div class="alert_btns">
+<button class="btn alert_btn1" type="submit">{:L('_SUBMIT_')}</button><button onClick="parent.layer.closeAll()" type="button" class="btn alert_btn2 left20">取消</button>
+</div>
+</div>
+<input type="hidden" name="amount" value="{:($map['amount2']-$map['act_balance'])/100}">
+<input type="hidden" name="box" value="mini">
+<neq name="map['shop_no']" value="">
+<input type="hidden" name="shop_no" value="{$map['shop_no']}">
+</neq>
+<input type="hidden" id="GO_SUBMIT" value="1">
+
+</form>
+</body>
+</html>

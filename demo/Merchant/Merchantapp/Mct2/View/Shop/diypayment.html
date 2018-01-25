@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SHOP_PAYMENT_')} - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="./Sys/left_menu" />
+<div class="content">
+<div class="hd"><button onClick="actbox('{:L('_SHOP_PAYMENT_ADD_')}','__CONTROLLER__/diypayment_add/shop_no/{$map['shop_no']}','420px','230px')" class="btn alert_btn1 addbtn">{:L('_SHOP_PAYMENT_ADD_')}</button>{:L('_SHOP_PAYMENT_')}</div>
+<div class="table pd20">
+<table cellpadding="0" cellspacing="0" class="tr_color top20" width="100%">
+<thead>
+<tr>
+<th>{:L('_SHOP_PAYMENT_NAME_')}</th>
+<th>{:L('_SHOP_NAME_')}</th>
+<th>{:L('_SHOP_PAYMENT_TIME_')}</th>
+<th>{:L('_SHOP_PAYMENT_MAN_')}</th>
+<th>{:L('_ACTION_')}</th>
+</tr>
+</thead>
+<tbody>
+<foreach name="rows['list']" item="vo">
+<tr>
+<td>{$vo['pmt_name']}</td>
+<td>{$vo['shop_name']}</td>
+<td>{$vo['pmt_time']}</td>
+<td>{$vo['true_name']}</td>
+<td class="blue">
+<a href="javascript:void(0)" onClick="actbox_confirm('__CONTROLLER__/diypayment_delete/pmt_id/{$vo['pmt_id']}','{:L('_SHOP_PAYMENT_DEL_TIP_',array('name'=>$vo['pmt_name']))}',true)">{:L('_DELETE_')}</a>
+<a class="left10" href="javascript:void(0)" onClick="actbox('{:L('_EDIT_')}','__CONTROLLER__/diypayment_edit/pmt_id/{$vo['pmt_id']}/pmt_name/{$vo['pmt_name']|urlencode}','420px','230px')">修改</a>
+</td>
+</tr>
+</foreach>
+</tbody>
+</table>
+<p class="top6">{:L('_SHOP_PAYMENT_LIMIT_')}</p>
+<button onClick="window.history.back()" class="btn blue_btn left50 top40">{:L('_BACK_')}</button>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_ACCOUNT_RECHARGE_OK_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_ACCOUNT_RECHARGE_STATUS_')}</div>
+<div class="suc_box">
+<img src="/Public/mct2/images/2.0/suc_img.png" alt="" />
+<p>{:L('_ACCOUNT_RECHARGE_OK_')}</p>
+<p>{:L('_ACCOUNT_RECHARGE_AMOUNT_')}<span class="org"> {$map['amount']/100|number_format=###,2}</span></p>
+<div class="center_block">
+<div class="top70">
+<button class="btn blue_btn" onClick="document.location.href='/account'">{:L('_ACCOUNT_RECHARGE_OK_BACK_')}</button><button class="btn gray_btn2 left50"  onClick="document.location.href='/appstore'">{:L('_ACCOUNT_RECHARGE_OK_TO_')}</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:L('_SYS_EDIT_MOBILE_')}  - {:L('_SYS_ADMIN_')} - {$admin['mct_name']}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<form action="__CONTROLLER__/mobile_code" method="post" onSubmit="return ttgValidata(this)">
+<div class="con_bg clearfix">
+<div class="main">
+<include file="left_menu" />
+<div class="content">
+<div class="hd">{:L('_SYS_EDIT_MOBILE_')} </div>
+<div class="from_box left_m">
+<dl>
+<dt>{:L('_SYS_NEW_MOBILE_')} : </dt>
+<dd><input class="txt required" title="{:L('_SYS_NEW_MOBILE_')}" maxlength="11" name="mobile" type="text" placeholder="{:L('_SYS_NEW_MOBILE_')}"/></dd>
+<dt>{:L('_SYS_PASSWORD_')} : </dt>
+<dd><input class="txt required" title="{:L('_SYS_PASSWORD_')}" name="password" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="{:L('_SYS_PASSWORD_')}" /></dd>
+</dl>
+<div class="top40"><button type="submit" class="btn blue_btn  left20">{:L('_SUBMIT_')}</button><button type="button" onClick="window.history.back()" class="btn left80 gray_btn2">{:L('_CANCEL_')}</button></div>
+</div>
+</div>
+</div>
+</div>
+<input type="hidden" id="GO_SUBMIT" value="1"> 
+</form>
+<include file="./footer" />
+</body>
+</html>

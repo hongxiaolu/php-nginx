@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{:C('mct_site_name')}</title>
+<include file="./css" />
+</head>
+<body>
+<include file="./header" />
+<div class="error_main">
+<div class="error_img">
+<p>{:L('_TIPS_PAGE_NO_EXISTS_')}<i></i></p>
+<img src="/Public/mct2/images/2.0/404_img.png">
+<p>{:L('_TIPS_YOU_CAN_ALSO_')}</p>
+<div class="center_block"><button onClick="document.location.href='/'" class="btn blue_btn">{:L('_HOME_')}</button><button onClick="window.history.back();" class="btn gray_btn2 left50">{:L('_BACK_')}</button></div>
+</div>
+</div>
+<include file="./footer" />
+</body>
+</html>

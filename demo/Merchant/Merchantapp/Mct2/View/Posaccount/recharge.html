@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{:strtolower(LANG_SET)}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>T账户充值 - {$admin['mct_name']}</title>
+<include file="./css" />
+<link rel="stylesheet" href="/Public/js/jquery.datetimepicker.css" />
+<script type="text/javascript" src="/Public/js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="/Public/js/jQselect.js"></script>
+</head>
+<body>
+<include file="./header" />
+<section id="content" class="content">
+<include file="./Pos/left_menu" />
+<section id="boxRight" class="boxRight">
+<div class="boxRight_tit f1 borderb">T账户充值</div>
+<form name="cash" method="post" action="/posaccount/recharge">
+<article class="boxRightCon cz">
+<ul>
+<li><span class="a">充值金额：</span><input value="100" name="amount" type="text"/> 元</li>
+
+
+
+<li><span class="a">支付方式：</span>
+<span class="b"><a href=""><img src="/Public/mct2/images/cz_icon1.jpg" alt="银联在线支付"/>银联在线支付</a></span>
+<span class="b"><a href=""><img src="/Public/mct2/images/cz_icon2.jpg" alt="支付宝付款"/>支付宝付款</a></span>
+<span class="b"><a href=""><img src="/Public/mct2/images/cz_icon3.png" alt="微信支付"/>微信支付</a></span>
+</li>
+</ul>
+</article>
+</form>
+</section>
+</section>
+<include file="./footer" />
+</body>
+</html>
