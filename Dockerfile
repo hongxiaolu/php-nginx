@@ -166,7 +166,6 @@ RUN     ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/d
 
 # Add Scripts
 ADD     scripts/start.sh /start.sh
-
 RUN     chmod 755 /start.sh
 
 # copy in code
