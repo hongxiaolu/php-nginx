@@ -1,4 +1,4 @@
-FROM    php:7.1.12-fpm-alpine
+FROM    php:7.2-fpm-alpine
 
 ENV     php_conf /usr/local/etc/php-fpm.conf
 ENV     fpm_conf /usr/local/etc/php-fpm.d/www.conf
@@ -256,10 +256,10 @@ ADD     scripts/pull /usr/bin/pull
 ADD     scripts/push /usr/bin/push
 ADD     scripts/letsencrypt-setup /usr/bin/letsencrypt-setup
 ADD     scripts/letsencrypt-renew /usr/bin/letsencrypt-renew
-RUN     chmod 755 /usr/bin/pull && chmod 755 /usr/bin/push && chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
+RUN     rm -rf /var/www/html/* && chmod 755 /usr/bin/pull && chmod 755 /usr/bin/push && chmod 755 /usr/bin/letsencrypt-setup && chmod 755 /usr/bin/letsencrypt-renew && chmod 755 /start.sh
 
 # copy in code
-ADD     errors/ /var/www/errors
+ADD     site/ /var/www/html
 
 EXPOSE  8443 80
 
