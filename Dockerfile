@@ -1,4 +1,4 @@
-FROM    php:5.6-fpm-alpine
+FROM    registry.cn-shenzhen.aliyuncs.com/rancher_cn/php:5.6-alpine
 
 ENV     php_conf /usr/local/etc/php-fpm.conf
 ENV     fpm_conf /usr/local/etc/php-fpm.d/www.conf
