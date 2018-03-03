@@ -1,4 +1,4 @@
-FROM    php:7.1.12-fpm-alpine
+FROM    php:5.6.33-fpm
 
 ENV     php_conf /usr/local/etc/php-fpm.conf
 ENV     fpm_conf /usr/local/etc/php-fpm.d/www.conf
@@ -12,15 +12,9 @@ ENV     LUAJIT_INC=/usr/include/luajit-2.0
 
 # resolves #166
 ENV     LD_PRELOAD /usr/lib/preloadable_libiconv.so php
-RUN     apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv 
 
-
-RUN   echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-#     sed -i -e "s/v3.4/edge/" /etc/apk/repositories && \
-      echo /etc/apk/respositories && \
-      apk update && \
-      apk add --no-cache bash \
-      openssh-client \
+RUN   apt update && \
+      apt install openssh-client \
       wget \
       supervisor \
       curl \
@@ -68,7 +62,6 @@ RUN   echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/re
       pip install -U pip && \
       pip install -U certbot && \
       mkdir -p /etc/letsencrypt/webrootauth && \
-      apk del gcc musl-dev linux-headers libffi-dev augeas-dev python-dev make autoconf
 #     ln -s /usr/bin/php7 /usr/bin/php
 
 
