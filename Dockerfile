@@ -10,8 +10,6 @@ ENV     DEVEL_KIT_MODULE_VERSION 0.3.0
 ENV     LUAJIT_LIB=/usr/lib
 ENV     LUAJIT_INC=/usr/include/luajit-2.0
 
-# resolves #166
-ENV     LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 RUN   apt update && \
       apt install openssh-client \
